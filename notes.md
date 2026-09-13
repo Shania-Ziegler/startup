@@ -13,7 +13,8 @@ This file represents what I have learned about web programming.
 
 ## AWS
 
-Interesting things I have learned about AWS
+Interesting things I have learned about AWS 
+You can have billing alerts set up within AWS.
 
 ## HTML
 
