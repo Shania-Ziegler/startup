@@ -16,21 +16,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 This sequence diagram shows two players sharing a chamber.
 ```mermaid
 sequenceDiagram
+  sequenceDiagram
     actor Alice
     actor Bob
     participant Server
-    Alice->>Server: join chamber 3
-    Bob->>Server: join chamber 3
-    Server-->>Alice: chamber state
-    Server-->>Bob: chamber state
     Alice->>Server: add pulse [Cool]
-    Server-->>Alice: sequence updated
     Server-->>Bob: sequence updated
     Bob->>Server: add pulse [Measure]
     Server-->>Alice: sequence updated
-    Server-->>Bob: sequence updated
     Bob->>Server: run experiment
-    Server->>Server: simulate the sequence
     Server-->>Alice: result
     Server-->>Bob: result
 ```
