@@ -30,10 +30,12 @@ sequenceDiagram
 ```
 
 ### Key features
-
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure login over HTTPS
+- Ability to select a chamber from the sanctuary map
+- Ability to add and remove pulses to build a sequence
+- Ability to run the sequence and watch Lumi react
+- Sequence changes from other apprentices displayed in realtime
+- Progress and best scores are persistently stored
 
 ### Technologies
 
