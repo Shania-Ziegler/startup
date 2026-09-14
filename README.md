@@ -1,7 +1,8 @@
 # Ion Sanctuary 
 
 [My Notes](notes.md)
-An educational game for younger audiences that teaches the basics of how quantum systems are controlled. You play an apprentice restoring a sanctuary of quantum "spirits", learning to steer them with light. Chambers can hold more than one Keeper, so apprentices can work through an experiment together in real time.
+
+Quantum physics has a reputation for being onerous to understand, and most explanations involve equations which most people shy away from.  This is why in my game Ion Sanctuary we take a different approach. This game gives you a quantum particle to look after. You are an apprentice restoring a sanctuary of quantum spirits, and Lumi, a trapped ion, lives in the first chamber. You cannot touch her, move her, or look at her directly; all you have is light. Each chamber gives you a goal and a few kinds of pulses to try, and you put them in order, run the experiment, and read the result off Lumi herself. Her color shows her state and her wobble shows how much energy she is holding. Two apprentices can share a chamber and work through an experiment together in real time. By the end you will not have memorized a single equation, but you will know what a measurement does, because you will have watched it happen to someone you have been taking care of.
 
 > [!NOTE]
 > This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
