@@ -27,6 +27,14 @@ Shell into the server:
 The class AMI comes with Ubuntu, Node.js, NVM, Caddy, and PM2 already installed.
 An elastic IP keeps the address the same even if the server restarts.
 
+An A record maps a domain name to an IP address. A wildcard record (*) covers
+every subdomain at once, so startup.quantumsanctuary.click and
+simon.quantumsanctuary.click both resolve without separate records.
+
+Use `dig @nameserver domain` to query a specific nameserver directly. That tells
+you whether your zone is serving correctly, separate from whether the registry
+has propagated yet.
+
 ## HTML
 
 Tim Berners-Lee invented document format HyperText Markup Language HTML while working at the CERN research laboratory.
