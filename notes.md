@@ -13,10 +13,19 @@ I love web programming
 - [Canvas](https://byu.instructure.com)
 - [MDN](https://developer.mozilla.org)
 
+
 ## AWS
 
-Interesting things I have learned about AWS 
 You can have billing alerts set up within AWS.
+
+Server IP: 54.163.151.162
+
+Shell into the server:
+
+    ssh -i ~/keys/cs260.pem ubuntu@54.163.151.162
+
+The class AMI comes with Ubuntu, Node.js, NVM, Caddy, and PM2 already installed.
+An elastic IP keeps the address the same even if the server restarts.
 
 ## HTML
 
