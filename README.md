@@ -1,21 +1,25 @@
-# Ion Sanctuary 
+# Quantum Sanctuary 
 
 [My Notes](notes.md)
 
 ### Elevator pitch
-
-Quantum physics has a reputation for being onerous to understand, and most explanations involve equations which most people shy away from.  This is why in my game Ion Sanctuary we take a different approach. This game gives you a quantum particle to look after. You are an apprentice restoring a sanctuary of quantum spirits, and Lumi, a trapped ion, lives in the first chamber. You cannot touch her, move her, or look at her directly; all you have is light. Each chamber gives you a goal and a few kinds of pulses to try, and you put them in order, run the experiment, and read the result off Lumi herself. Her color shows her state and her wobble shows how much energy she is holding. Two apprentices can share a chamber and work through an experiment together in real time. By the end you will not have memorized a single equation, but you will know what a measurement does, because you will have watched it happen to someone you have been taking care of.
+The hardware behind quantum computers can have a reputation for being challenging to understand, and most explanations open with equations that seem complex. Quantum Sanctuary takes a lighter approach: it gives you quantum particles to look after. You are an apprentice restoring a sanctuary of quantum spirits, each chamber home to a different one, and Lumi, a trapped ion, lives in the first. You cannot touch her or move her yourself; the only way to reach her is with light. Each chamber gives you a goal and a few kinds of pulses, and you put them in order, run the experiment, and read the result off Lumi herself. Her color shows her state and her wobble shows her energy. Two apprentices can share a chamber and run experiments together in real time. By the end you will understand some basic terminology, and you will have picked it up playing with friends. 
 
 ### Design
 
-![Design image](placeholder.png)
+![Chamber screen](sketch-chamber.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The chamber view at first chamber. 
+Bit gives the goal at the top, Lumi sits in the middle
+The pulses you can use along with the sequence you are building are below her.
+
+![Sanctuary map](sketch-map.png)
+
+The sanctuary map. Each chamber holds a different kind of quantum spirit, and they unlock as you restore the ones before them.
 
 
 This sequence diagram shows two players sharing a chamber.
 ```mermaid
-sequenceDiagram
   sequenceDiagram
     actor Alice
     actor Bob
@@ -51,7 +55,7 @@ I am going to use the required technologies in the following ways.
   - saving and retrieving player progress
   - retrieving measurement randomness from [qrandom.io](https://qrandom.io/docs), falling back to a local random number generator if the service is rate limited or down
 - **DB/Login** - Store users, progress, and best scores in MongoDB. Register and login users. Credentials securely stored in the database. Cannot play unless authenticated.
-- **WebSocket** - The sequence is shared between players in a chamber. As each one adds or removes a pulse, the change is broadcast to the others, and running the experiment broadcasted to the other players.
+- **WebSocket** - The sequence is shared between players in a chamber. As each one adds or removes a pulse, the change is broadcast to the others, and running the experiment is broadcasted to the other players.
 
 ## 🚀 Specification Deliverable
 
@@ -60,12 +64,12 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Git commit requirement)
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology including your 3rd party API and use of WebSocket
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] I completed the prerequisites for this deliverable (Git commit requirement)
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology including your 3rd party API and use of WebSocket
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ## 🚀 AWS deliverable
 
