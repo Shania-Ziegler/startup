@@ -2,8 +2,8 @@
 
 This file represents what I have learned about web programming.
 
-- [My startup](https://startup.cs260.click)
-- [My simon](https://simon.cs260.click)
+- [My startup](https://startup.quantumsanctuary.click)
+- [My simon](https://simon.quantumsanctuary.click)
 
 I love web programming
 
@@ -34,6 +34,23 @@ simon.quantumsanctuary.click both resolve without separate records.
 Use `dig @nameserver domain` to query a specific nameserver directly. That tells
 you whether your zone is serving correctly, separate from whether the registry
 has propagated yet.
+
+Domain: quantumsanctuary.click
+
+Caddy uses Let's Encrypt and the ACME protocol to request and renew certificates
+automatically. Let's Encrypt verifies you own the domain by asking your server to
+return a signed response at a temporary URL over HTTP, then issues the cert.
+
+In the Caddyfile, removing `:80` and putting the domain name in its place makes
+Caddy serve over 443 and redirect HTTP to HTTPS. Restart with:
+
+    sudo service caddy restart
+
+Caddy also acts as a reverse proxy. `reverse_proxy * localhost:4000` sends
+requests for startup.quantumsanctuary.click to a service running internally on
+port 4000, so the browser never sees that port.
+
+Let's Encrypt is a non profit with the goal of creating trusted web certificates for free.
 
 ## HTML
 
