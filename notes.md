@@ -164,7 +164,7 @@ Change the section ul element text to be "apples", "bananas", and "oranges".
 Adding image
 <aside>
       <p>Aside</p>
-      <img src="https://shorturl.at/FF8tS">
+      <img src="https://shorturl.at/FF8tS" width="300">
     </aside>
   </main>
 
