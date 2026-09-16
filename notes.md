@@ -168,6 +168,9 @@ Adding image
     </aside>
   </main>
 
+Hyperlink footer
+  <div>Footer - <span>Span</span></div> 
+    <a href="https://github.com/Shania-Ziegler/startup">GitHub Repository</a>
 
 
 The footer has a content division with a single span.
