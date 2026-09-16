@@ -67,6 +67,42 @@ Simple HTML document:
   </body>
 </html>
 
+Web programmers have altered the web page concept into a web application where a page now represents either a single page application (SPA) or a large group of hyperlinked pages that form a multi-page application (MPA).
+
+HTML elements are represented with enclosing tags that may enclose other elements or text.
+
+Paragraph element associated with tag(p)
+
+Tags are delimited with the less than (<) and greater than (>) symbols. A closing tag will also have a forward slash (/) before its name.
+
+The html element represents top level page structure.
+
+head element contains metadata about the page and the page title.
+
+body element represents the content structure.
+
+main element represents the main content structure.
+
+HTML is mainly about structure using render visual experience wouldn't change until you style with CSS
+
+Every HTML element can have attributes.
+Examples: id attribute gives a unique ID for a element to distinguish from other elements 
+The class element attribute designates the element as being classified to a named group of elements
+
+Attributes are written inside an element tag with a name followed by an optional value 
+You can use ' or " to mark attribute values 
+
+HTML has hyperlinks
+A hyperlink in HTML is represented with an anchor (a) element that has an attribute containing the address of the hyperlink reference (href).
+
+HTML defines a header (<!DOCTYPE html>)
+Always include on top of file 
+
+You can include comments in your HTML files by starting the comment with <!-- and ending it with -->
+
+HTML uses several reserved characters for defining its file format.
+
+
 ## React
 
 Interesting things I have learned about React
