@@ -102,7 +102,31 @@ You can include comments in your HTML files by starting the comment with <!-- an
 
 HTML uses several reserved characters for defining its file format.
 
+If you want to use those characters in your content then you need to escape them using the entity syntax. 
+For example character > Entity is &gt;
 
+Some of the common HTML structural elements include body, header, footer, main, section, aside, p, table, ol/ul, div, and span. 
+body.
+
+The body has three children, a header, main, and footer. Each of the body children then contains other structural content.
+
+The header contains a paragraph with a span, and a navigation containing multiple divisions of sub-content.
+
+The main contains multiple sections that contain either an unordered list (ul) or a table. Main also contains an aside for content that does not fit the content flow of the sections.
+
+Block and inline:
+A block element is meant to be a distinct block in the flow of the content structure.
+An inline element is meant to be inline with the content flow of a block element.
+
+Meaning inline elements do not disrupt the flow of a block elements content
+
+For example, the block element div (division) could have an inline element b in order to bring attention to a portion of its sub-text. Likewise a p (paragraph) element could have a span to mark the paragraph's sub-text as a person's name.
+
+<div>He said <b>don't</b> cross the beams.</div>
+
+<p>Authors such as <span>ee cummings</span> often used unconventional structure.</p>
+
+The footer has a content division with a single span.
 ## React
 
 Interesting things I have learned about React
