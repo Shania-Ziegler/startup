@@ -126,6 +126,50 @@ For example, the block element div (division) could have an inline element b in 
 
 <p>Authors such as <span>ee cummings</span> often used unconventional structure.</p>
 
+Replacing navigation div elements with anchor elements that have hyperlinks
+
+<body>
+  <p>Body</p>
+  <header>
+    <p>Header - <span>Span</span></p>
+    <nav>
+      Navigation
+      <div>Div</div>
+      <div>Div</div>
+    </nav>
+  </header>
+
+Transforms into
+<body> 
+  <p>Body</p> 
+  <header> 
+    <p>Header - <span>Span</span></p> 
+    <nav> 
+      Navigation 
+      <a href="https://byu.edu">BYU</a> 
+      <a href="https://familysearch.org">FamilySearch</a> 
+    </nav> 
+  </header>
+</body>
+
+Change the section ul element text to be "apples", "bananas", and "oranges".
+<main>
+    <section>
+      <p>Section</p>
+      <ul>
+        <li>apples</li>
+        <li>bananas</li>
+        <li>oranges</li>
+
+Adding image
+<aside>
+      <p>Aside</p>
+      <img src="https://shorturl.at/FF8tS">
+    </aside>
+  </main>
+
+
+
 The footer has a content division with a single span.
 ## React
 
