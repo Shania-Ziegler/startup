@@ -174,6 +174,16 @@ Hyperlink footer
 
 
 The footer has a content division with a single span.
+
+key Attributes of element 
+<form>
+
+action: Defines the URL of the server-side resource (e.g., an API endpoint) that will process the submitted data.
+method: Specifies the HTTP method used to send the data.
+GET: Appends form data to the URL in name/value pairs. Used for non-sensitive data like search queries.
+POST: Sends data inside the body of the HTTP request. Used for sensitive information (like passwords) or when sending large amounts of data.
+
+
 ## React
 
 Interesting things I have learned about React
