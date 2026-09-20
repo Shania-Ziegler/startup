@@ -184,6 +184,67 @@ GET: Appends form data to the URL in name/value pairs. Used for non-sensitive da
 POST: Sends data inside the body of the HTTP request. Used for sensitive information (like passwords) or when sending large amounts of data.
 
 
+For data to be sent to the server, every input within form must have a <name> attribute.
+Without the browser will not include that specific inputs data in the submission.
+
+> [!NOTE]
+> ## Input Element
+>
+> Inside a `<form>`, you can include `<input>` elements that represent many different types of user input.
+>
+> The type of input is set using the `type` attribute:
+>
+> ```html
+> <input type="text">
+> ```
+>
+> | `type` | Meaning |
+> |---|---|
+> | `text` | Single-line textual value |
+> | `password` | Obscured password |
+> | `email` | Email address |
+> | `tel` | Telephone number |
+> | `url` | URL address |
+> | `number` | Numerical value |
+> | `checkbox` | Inclusive selection — multiple options can be selected |
+> | `radio` | Exclusive selection — only one option can be selected |
+> | `range` | Range-limited number |
+> | `date` | Year, month, and day |
+> | `datetime-local` | Date and time |
+> | `month` | Year and month |
+> | `week` | Week of the year |
+> | `color` | Color picker |
+> | `file` | Select a local file |
+> | `submit` | Button that triggers form submission |
+
+In order to create an input you specify the desired type attribute along with any other attribute associated with that specific input.
+
+> [!NOTE]
+> ## Common Input Attributes
+>
+> Most `<input>` elements share some common attributes:
+>
+> | Attribute | Meaning |
+> |---|---|
+> | `name` | The name of the input. If used in a form, this name is submitted with the input value. |
+> | `disabled` | Prevents the user from interacting with the input. |
+> | `value` | Sets the initial value of the input. |
+> | `required` | Means the input must have a value for the form to be valid. |
+
+
+Common HTML structural elements organize a webpage into meaningful sections:
+
+<html> — the root element that contains the whole HTML document.
+<head> — contains information about the page, such as the title, metadata, and links to CSS.
+<body> — contains everything that is visible on the webpage.
+<header> — contains introductory content, such as a page title or logo.
+<nav> — contains navigation links.
+<main> — contains the primary content of the page.
+<section> — groups related content together.
+<article> — contains self-contained content, such as a blog post or news article.
+<aside> — contains related or secondary content, such as a sidebar.
+<footer> — contains information at the bottom of a page or section, such as copyright or contact information.
+
 ## React
 
 Interesting things I have learned about React
