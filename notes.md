@@ -245,6 +245,22 @@ Common HTML structural elements organize a webpage into meaningful sections:
 <aside> — contains related or secondary content, such as a sidebar.
 <footer> — contains information at the bottom of a page or section, such as copyright or contact information.
 
+<menu> is the semantic version of <ul> for navigation. 
+
+Semantic meaning explained so <div> is non-semantic meaning it's a generic box that tells you nothing. 
+
+<nav>, <header>, <footer>, <aside> are semantic, because the name describes the content's role. 
+This is great for developers, screen readers and search engines.
+
+Some additional accessibility for html
+- lang="en" on the html element so screen readers know the language
+- <label for="..."> tied to each input's id, so clicking the label focuses the input
+- alt text on images, describing what the image shows
+- headings in order (h1, h2, h3) so the page has a readable outline
+
+
+<dl> with <dt>/<dd> is for term-and-definition lists.
+
 ## React
 
 Interesting things I have learned about React
