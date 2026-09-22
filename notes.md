@@ -261,6 +261,10 @@ Some additional accessibility for html
 
 <dl> with <dt>/<dd> is for term-and-definition lists.
 
+For sensitive data like passwords, you should use method="post" to ensure credentials aren't appended to the URL in the browser history.
+
+
+
 ## React
 
 Interesting things I have learned about React
