@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quantum Sanctuary - Map</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Quantum Sanctuary</h1>
+    <p>Player: <span id="player-name">Shania</span></p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="map.html">Sanctuary</a></li>
+      <li><a href="chamber.html">Chamber</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html">Logout</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section>
+      <h2>Sanctuary Map</h2>
+      <img src="sketch-map.png" alt="Map of the five chambers" width="500" />
+    </section>
+
+    <section>
+      <h2>Chambers</h2>
+      <ul>
+        <li><a href="chamber.html">Quiet Chamber</a> - trapped ion - open</li>
+        <li>Lantern Grove - neutral atoms - locked</li>
+        <li>Glass Halls - photons - locked</li>
+        <li>Frozen Spire - superconducting - locked</li>
+        <li>Lattice - silicon qubits - locked</li>
+      </ul>
+    </section>
+
+    <!-- Database placeholder MongoDB -->
+    <section>
+      <h2>Progress</h2>
+      <p>
+        <label for="progress">Chambers restored:</label>
+        <meter id="progress" min="0" max="5" value="0">0 of 5</meter>
+        0 of 5
+      </p>
+
+      <h3>Best scores</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Chamber</th>
+            <th>Fewest pulses</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ana</td>
+            <td>Quiet Chamber</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Ben</td>
+            <td>Quiet Chamber</td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Shania Ziegler</p>
+    <p><a href="https://github.com/Shania-Ziegler/startup">GitHub</a></p>
+  </footer>
+
+</body>
+
+</html>
