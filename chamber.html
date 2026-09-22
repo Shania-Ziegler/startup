@@ -30,7 +30,7 @@
 
     <section>
       <h3>Bit</h3>
-      <p id="hint">Ask me anything about this chamber.</p>
+      <p id="hint" aria-live="polite">Ask me anything about this chamber.</p>
       <button type="button">What does this pulse do?</button>
       <button type="button">What am I aiming for?</button>
       <button type="button">What went wrong?</button>
@@ -41,7 +41,7 @@
       <p>Match the target in 4 pulses or fewer.</p>
       <div id="particle">Current state</div>
       <div id="target">Target state</div>
-      <p>Noise: <span id="noise">quiet</span></p>
+      <p>Noise: <span id="noise" aria-live="polite">quiet</span></p>
     </section>
 
     <section>
@@ -69,9 +69,9 @@
       <button type="button">Run</button>
       <button type="button">Step</button>
       <button type="button">Reset</button>
-      <p>Result: <span id="result">not run yet</span></p>
+      <p>Result: <span id="result" aria-live="polite">not run yet</span></p>
       <!-- 3rd party API placeholder -->
-      <p>Measurement randomness from qrandom.io: <span id="qrandom">--</span></p>
+      <p>Measurement randomness from qrandom.io: <span id="qrandom" aria-live="polite">--</span></p>
     </section>
 
     <!-- WebSocket placeholder -->
