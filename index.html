@@ -12,23 +12,27 @@
   <header>
     <h1>Quantum Sanctuary</h1>
     <p>Player: <span id="player-name">not signed in</span></p>
-  </header>
-
   <nav>
-    <a href="about.html">About</a>
+    <menu>
+      <li><a href="about.html">About</a></li>
+    </menu>
   </nav>
+  <hr/>
+  </header>
 
   <main>
     <section>
       <form method="get" action="map.html">
         <div>
+          <label for="username">Username:</label>
           <input type="text" id="username" placeholder="Username" required />
         </div>
         <div>
+          <label for="password">Password:</label>
           <input type="password" id="password" placeholder="Password" required />
         </div>
         <div>
-          <input type="checkbox" id="remember" />
+          <input type="checkbox" id="remember" name="remember"/>
           <label for="remember">Remember me</label>
         </div>
         <button type="submit">Login</button>
@@ -42,6 +46,7 @@
   </main>
 
   <footer>
+    <hr/>
     <p>Shania Ziegler</p>
     <p><a href="https://github.com/Shania-Ziegler/startup">GitHub repository</a></p>
   </footer>
