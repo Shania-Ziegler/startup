@@ -75,8 +75,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **Rented EC2 server** - I did not complete this part of the deliverable.
-- [x] **Leased domain name** - I did not complete this part of the deliverable.
+- [x] **Rented EC2 server** 
+- [x] **Leased domain name** 
 - [x] **Server accessible** from my domain: [https://quantumsanctuary.click](https://quantumsanctuary.click) - Working over HTTPS with a certificate issued by Caddy.
 
 ## 🚀 HTML deliverable
