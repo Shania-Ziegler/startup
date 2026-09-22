@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quantum Sanctuary - Chamber</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Quantum Sanctuary</h1>
+    <p>Player: <span id="player-name">Shania</span></p>
+    <nav>
+      <menu>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="map.html">Sanctuary</a></li>
+        <li><a href="chamber.html">Chamber</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </menu>
+    </nav>
+    <hr />
+  </header>
+
+  <main>
+
+    <h2>Quiet Chamber</h2>
+
+    <section>
+      <h3>Bit</h3>
+      <p id="hint">Ask me anything about this chamber.</p>
+      <button type="button">What does this pulse do?</button>
+      <button type="button">What am I aiming for?</button>
+      <button type="button">What went wrong?</button>
+    </section>
+
+    <section>
+      <h3>Goal</h3>
+      <p>Match the target in 4 pulses or fewer.</p>
+      <div id="particle">Current state</div>
+      <div id="target">Target state</div>
+      <p>Noise: <span id="noise">quiet</span></p>
+    </section>
+
+    <section>
+      <h3>Experiment</h3>
+      <ol>
+        <li>Blue pulse</li>
+        <li>Flip</li>
+        <li>empty</li>
+        <li>empty</li>
+      </ol>
+      <button type="button">Undo</button>
+      <button type="button">Clear</button>
+    </section>
+
+    <section>
+      <h3>Pulses</h3>
+      <button type="button">Flip</button>
+      <button type="button">Blue pulse</button>
+      <button type="button">Red pulse</button>
+      <button type="button">Shield</button>
+      <button type="button">Measure</button>
+    </section>
+
+    <section>
+      <button type="button">Run</button>
+      <button type="button">Step</button>
+      <button type="button">Reset</button>
+      <p>Result: <span id="result">not run yet</span></p>
+      <!-- 3rd party API placeholder -->
+      <p>Measurement randomness from qrandom.io: <span id="qrandom">--</span></p>
+    </section>
+
+    <!-- WebSocket placeholder -->
+    <aside>
+      <h3>Players here</h3>
+      <p>Shania, Ana</p>
+      <ul>
+        <li>Ana added Blue pulse</li>
+        <li>Shania added Flip</li>
+      </ul>
+    </aside>
+
+  </main>
+
+  <footer>
+    <hr />
+    <p>Shania Ziegler</p>
+    <p><a href="https://github.com/Shania-Ziegler/startup">GitHub repository</a></p>
+  </footer>
+
+</body>
+
+</html>
