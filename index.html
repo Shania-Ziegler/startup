@@ -1,19 +1,51 @@
-<section>
-  <form method="get" action="map.html">
-    <div>
-      <input type="text" id="username" placeholder="Username" required />
-    </div>
-    <div>
-      <input type="password" id="password" placeholder="Password" required />
-    </div>
-    <div>
-      <input type="checkbox" id="remember" />
-      <label for="remember">Remember me</label>
-    </div>
-    <button type="submit">Login</button>
-  </form>
+<!DOCTYPE html>
+<html lang="en">
 
-  <p>or</p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quantum Sanctuary</title>
+</head>
 
-  <button type="button">New Player? Register</button>
-</section>
+<body>
+
+  <header>
+    <h1>Quantum Sanctuary</h1>
+    <p>Player: <span id="player-name">not signed in</span></p>
+  </header>
+
+  <nav>
+    <a href="about.html">About</a>
+  </nav>
+
+  <main>
+    <section>
+      <form method="get" action="map.html">
+        <div>
+          <input type="text" id="username" placeholder="Username" required />
+        </div>
+        <div>
+          <input type="password" id="password" placeholder="Password" required />
+        </div>
+        <div>
+          <input type="checkbox" id="remember" />
+          <label for="remember">Remember me</label>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+
+      <p>or</p>
+
+      <button type="button">New Player? Register</button>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Shania Ziegler</p>
+    <p><a href="https://github.com/Shania-Ziegler/startup">GitHub repository</a></p>
+  </footer>
+
+</body>
+
+</html>
