@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Create a new player account for Quantum Sanctuary." />
+  <title>Quantum Sanctuary - Register</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Quantum Sanctuary</h1>
+    <p>Player: <span id="player-name">Guest</span></p>
+    <nav>
+      <ul>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="map.html">Sanctuary</a></li>
+        <li><a href="chamber.html">Chamber</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+
+  <main>
+    <section>
+      <h2>New Player</h2>
+      <!-- Placeholder registration. Becomes a POST to the auth endpoint in the Service deliverable. -->
+      <form method="get" action="map.html">
+        <div>
+          <label for="new-username">Username:</label>
+          <input type="text" id="new-username" name="username" placeholder="Username" required />
+        </div>
+        <div>
+          <label for="new-password">Password:</label>
+          <input type="password" id="new-password" name="password" placeholder="Password" required />
+        </div>
+        <div>
+          <label for="confirm-password">Confirm password:</label>
+          <input type="password" id="confirm-password" name="confirm" placeholder="Confirm password" required />
+        </div>
+        <button type="submit">Create account</button>
+      </form>
+      <p>Already a Player? <a href="index.html">Login</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <hr />
+    <p>Shania Ziegler</p>
+    <p><a href="https://github.com/Shania-Ziegler/startup" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+  </footer>
+
+</body>
+
+</html>
