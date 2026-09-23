@@ -86,7 +86,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 - [x] **HTML pages** - Five different pages. One for each view. `index.html` (login), `map.html` (the sanctuary), `chamber.html` (the puzzle), `journal.html`, and `about.html`.
-- [x] **Proper HTML element usage** - I used header, nav, menu, main, section, aside, footer, form, label, input, button, table, meter, img, and many more.
+- [x] **Proper HTML element usage** - I used header, nav, ul, main, section, aside, footer, form, label, input, button, table, meter, img, and many more.
 - [x] **Links** - Links between views.
 - [x] **Text** - The about page explains what the game is and lists the five kinds of quantum hardware. The journal page has entries describing the quantum ideas the player have unlocked.
 - [x] **3rd party API placeholder** - The chamber page has a place under the Run button where measurement outcomes will be drawn from qrandom.io.
