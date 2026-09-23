@@ -263,7 +263,11 @@ Some additional accessibility for html
 
 For sensitive data like passwords, you should use method="post" to ensure credentials aren't appended to the URL in the browser history.
 
+Remember in CSS section 
+In chamber.html, while the aria-live attribute is correctly used, the initial text could be more descriptive for users relying on assistive technology.
 
+<p>Result: <span id="result" aria-live="polite">not run yet</span></p>
+Ensure that when the "Run" button is clicked, the state transition (e.g., "Running experiment...") is updated within this span so screen reader users are immediately notified that the process has started
 
 ## React
 
