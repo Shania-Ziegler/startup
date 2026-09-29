@@ -285,6 +285,18 @@ p {
   text-shadow: 3px 3px 1px black;
 }
 
+CSS selectors
+
+- How to select elements that a CSS rule applies to
+
+Commmon selectors:
+
+The <body> element or use wildcard element name selector (*) to select all elements 
+
+Changing color of second level headings - we provide a descendant combinator that is defined with aa space delimited list of values where each item in the list is a descendant of the previous items
+
+So the selector would be all h2 elements that are descendants of section elements 
+
 ## Javascript
 In 1995 Netscape (the maker of the popular browser Navigator) decided to add the ability to script web pages. The initial implementation was led by Brendan Eich and given the name JavaScript. JavaScript turned the previously static web into an interactive experience where a web page could dynamically change based upon a user's interaction.
 
