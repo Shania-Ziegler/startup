@@ -1,6 +1,3 @@
-/* Bootstrap lives in its own cascade layer, so every rule below outranks it. */
-@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css") layer(framework);
-
 /* Pixelify Sans stands in for Cristik, which has no legitimate web-font source. */
 @import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Roboto:wght@400;500;600;700&display=swap");
 
@@ -169,6 +166,23 @@ main {
   font-size: 1.05rem;
 }
 
+/* Screen-reader-only text, and a skip link that appears on keyboard focus */
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+
+  border: 0;
+
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .skip-link {
   position: absolute;
   top: 0.75rem;
@@ -314,7 +328,7 @@ main {
   font-size: 0.85rem;
 }
 
-#player-name {
+.player-name {
   color: var(--text);
   font-weight: 600;
 }
@@ -377,13 +391,12 @@ main {
    ============================================================ */
 
 .panel {
+  padding: 1.5rem;
+
   border-radius: var(--radius);
+
   background: var(--surface);
   box-shadow: var(--shadow-medium);
-}
-
-.panel {
-  padding: 1.5rem;
 }
 
 .two-column {
@@ -743,7 +756,12 @@ input:focus {
   color: var(--text-secondary);
 }
 
+/* Standard reset first; vendor pseudo-elements below draw the bar and fill */
 meter {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
   display: block;
   width: 100%;
   height: 8px;
@@ -1147,6 +1165,15 @@ thead th {
   font-weight: 500;
 }
 
+/*
+   Intentional ID selector: the experiment result is the one unique
+   outcome on the page (also an aria-live and future script target),
+   so it reads brighter than the secondary readouts beside it.
+*/
+#result {
+  color: var(--text);
+}
+
 /* Bit and multiplayer: plain text that recedes beside the puzzle */
 .side-stack {
   padding-left: 2.5rem;
@@ -1436,6 +1463,7 @@ thead th {
   }
 }
 
+/* !important is needed here so this wins over every component animation */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1448,10 +1476,20 @@ thead th {
 
 /* ============================================================
    Responsive
+   Three project breakpoints, widest first:
+     992px  tablet: the chamber sidebar drops below the puzzle and
+            two-column page sections stack
+     767px  phone: 768px tablets keep the tablet layout; below that the
+            header, map, chamber controls, and tables switch to
+            single-column phone layouts
+     359px  narrow phone (320px class): Lumi and the target no longer
+            fit side by side, so they stack; gutters tighten
    ============================================================ */
 
-@media (max-width: 1023px) {
-  .layout {
+@media (max-width: 992px) {
+  .layout,
+  .two-column,
+  .journal-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -1470,13 +1508,6 @@ thead th {
     padding-top: 0;
     border-top: 0;
   }
-}
-
-@media (max-width: 860px) {
-  .two-column,
-  .journal-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
 
   .hardware-list > div {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -1487,8 +1518,32 @@ thead th {
   }
 }
 
-/* Phones: the map becomes a vertical path, not a squeezed desktop map */
-@media (max-width: 719px) {
+@media (max-width: 767px) {
+  main {
+    padding: 1.75rem 0 2.5rem;
+  }
+
+  /* Header: brand on its own line, five links as a 3-column grid */
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  nav {
+    margin: 0 -0.25rem;
+  }
+
+  .nav-list:has(> li:nth-child(3)) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .panel,
+  .map-panel {
+    padding: 1.1rem;
+  }
+
+  /* Map: a vertical path, not a squeezed desktop map */
   .map-path {
     display: none;
   }
@@ -1541,41 +1596,7 @@ thead th {
     margin: 0;
   }
 
-  .side-stack {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2rem;
-  }
-
-  .together {
-    padding-top: 2rem;
-    border-top: 1px solid var(--line);
-  }
-}
-
-@media (max-width: 599px) {
-  main {
-    padding: 1.75rem 0 2.5rem;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  nav {
-    margin: 0 -0.25rem;
-  }
-
-  .nav-list:has(> li:nth-child(3)) {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .panel,
-  .map-panel {
-    padding: 1.1rem;
-  }
-
+  /* Chamber: smaller Lumi, 2x2 sequence, stacked pulses and controls */
   .stage {
     padding: 2.75rem 0 2.5rem;
     gap: 0.75rem;
@@ -1627,6 +1648,17 @@ thead th {
     flex-direction: column;
   }
 
+  /* Bit, then shared activity, below the puzzle */
+  .side-stack {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .together {
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
   th,
   td {
     padding-top: 0.6rem;
@@ -1634,8 +1666,7 @@ thead th {
   }
 }
 
-/* Narrow phones */
-@media (max-width: 379px) {
+@media (max-width: 359px) {
   :root {
     --gutter: 12px;
   }
@@ -1647,10 +1678,7 @@ thead th {
   .nav-list a {
     padding: 0 0.4rem;
   }
-}
 
-/* 320px phones: current and target stack vertically */
-@media (max-width: 359px) {
   .stage {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.25rem;
