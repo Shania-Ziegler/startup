@@ -4,49 +4,123 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="About Quantum Sanctuary, a puzzle game about quantum computer hardware." />
-  <title>Quantum Sanctuary - About</title>
+  <meta name="description" content="About Quantum Sanctuary and its five kinds of quantum hardware." />
+  <title>About - Quantum Sanctuary</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
+  <a class="skip-link visually-hidden-focusable" href="#main">Skip to main content</a>
 
-  <header>
-    <h1>Quantum Sanctuary</h1>
-    <p>Player: <span id="player-name">Guest</span></p>
-    <nav>
-      <ul>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="map.html">Sanctuary</a></li>
-        <li><a href="chamber.html">Chamber</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.html">Logout</a></li>
-      </ul>
-    </nav>
-    <hr />
-  </header>
+  <div class="shell">
 
-  <main>
-    <section>
-      <h2>About</h2>
-      <p>
-        Learn how quantum computer hardware works by solving puzzles with quantum
-        particles.
-      </p>
-      <p>
-        Each chamber holds a different kind of quantum hardware: trapped ions,
-        neutral atoms, photons, superconducting circuits, and silicon spin qubits. You
-        build a short experiment, run it, and see how the particle responds.
-        Chambers can be shared, so you can solve them with friends.
-      </p>
-    </section>
-  </main>
+    <header class="site-header">
+      <div class="topbar">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1>Quantum Sanctuary</h1>
+            <p class="player-line">Apprentice <span id="player-name">Guest</span></p>
+          </div>
+        </div>
 
-  <footer>
-    <hr />
-    <p>Shania Ziegler</p>
-    <p><a href="https://github.com/Shania-Ziegler/startup" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-  </footer>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="map.html">Sanctuary</a></li>
+            <li><a href="chamber.html">Chamber</a></li>
+            <li><a href="about.html" aria-current="page">About</a></li>
+            <li><a href="index.html">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
 
+      <hr />
+    </header>
+
+    <main id="main">
+
+      <article class="about" aria-labelledby="about-title">
+
+        <p class="eyebrow">About the sanctuary</p>
+
+        <h2 id="about-title">Quantum hardware, learned by caring for it.</h2>
+
+        <p class="lead">
+          Quantum computers can seem difficult to approach because their
+          hardware is often introduced through equations first. Quantum
+          Sanctuary takes a different route.
+        </p>
+
+        <p>
+          You are an apprentice restoring a sanctuary of quantum spirits.
+          Each chamber represents a different kind of quantum-computing
+          hardware. Instead of moving the spirits directly, you experiment
+          with the controls available to that physical system and watch
+          how it responds.
+        </p>
+
+        <p>
+          In the Quiet Chamber, Lumi is a trapped ion. Laser pulses change
+          her internal state and motion. By experimenting with pulse
+          sequences, you gradually discover what those controls mean.
+        </p>
+
+        <section class="hardware" aria-labelledby="hardware-title">
+          <h3 id="hardware-title">Five chambers</h3>
+
+          <dl class="hardware-list">
+            <div>
+              <dt>Trapped ions</dt>
+              <dd class="chamber-name">Quiet Chamber</dd>
+              <dd>Charged atoms suspended by electric fields and steered with lasers.</dd>
+            </div>
+
+            <div>
+              <dt>Neutral atoms</dt>
+              <dd class="chamber-name">Lantern Grove</dd>
+              <dd>Arranged in neat rows by tightly focused beams.</dd>
+            </div>
+
+            <div>
+              <dt>Photons</dt>
+              <dd class="chamber-name">Glass Halls</dd>
+              <dd>Particles of light routed through mirrors and splitters.</dd>
+            </div>
+
+            <div>
+              <dt>Superconducting circuits</dt>
+              <dd class="chamber-name">Frozen Spire</dd>
+              <dd>Cooled near absolute zero so current flows without resistance.</dd>
+            </div>
+
+            <div>
+              <dt>Silicon qubits</dt>
+              <dd class="chamber-name">Lattice</dd>
+              <dd>Electron spins in silicon, the material of ordinary chips.</dd>
+            </div>
+          </dl>
+        </section>
+
+      </article>
+
+    </main>
+
+    <footer class="site-footer">
+      <hr />
+      <div class="footer-inner">
+        <p>Quantum Sanctuary · Shania Ziegler</p>
+        <p>
+          <a href="https://github.com/Shania-Ziegler/startup"
+             target="_blank"
+             rel="noopener noreferrer">
+            GitHub
+          </a>
+        </p>
+      </div>
+    </footer>
+
+  </div>
 </body>
 
 </html>

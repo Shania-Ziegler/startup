@@ -4,56 +4,108 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Learn how quantum computer hardware works through interactive puzzles." />
+  <meta name="description" content="Enter Quantum Sanctuary and learn quantum hardware through puzzles." />
   <title>Quantum Sanctuary</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
+  <a class="skip-link visually-hidden-focusable" href="#main">Skip to main content</a>
 
-  <header>
-    <h1>Quantum Sanctuary</h1>
-    <p>Player: <span id="player-name">Guest</span></p>
-    <nav>
-      <ul>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="map.html">Sanctuary</a></li>
-        <li><a href="chamber.html">Chamber</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.html">Logout</a></li>
-      </ul>
-    </nav>
-    <hr />
-  </header>
+  <div class="shell">
 
-  <main>
-    <section>
-      <h2>Login</h2>
-      <!-- Placeholder login. Becomes a POST to the auth endpoint in the Service deliverable. -->
-      <form method="post" action="map.html">
-        <div>
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" placeholder="Username" required />
+    <header class="site-header">
+      <div class="topbar">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1>Quantum Sanctuary</h1>
+            <p class="player-line">A puzzle sanctuary for quantum spirits</p>
+          </div>
         </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" placeholder="Password" required />
-        </div>
-        <div>
-          <input type="checkbox" id="remember" name="remember" />
-          <label for="remember">Remember me</label>
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <p>New Player? <a href="register.html">Register</a></p>
-    </section>
-  </main>
 
-  <footer>
-    <hr />
-    <p>Shania Ziegler</p>
-    <p><a href="https://github.com/Shania-Ziegler/startup" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-  </footer>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
 
+      <hr />
+    </header>
+
+    <main id="main" class="auth-main">
+
+      <section class="panel login-card" aria-labelledby="login-title">
+
+        <div class="auth-copy">
+          <p class="eyebrow">The sanctuary is waiting</p>
+          <h2 id="login-title">Welcome, apprentice.</h2>
+          <p>Sign in to continue restoring the quantum spirits.</p>
+        </div>
+
+        <!-- Placeholder login. Becomes POST auth in Service deliverable. -->
+        <form method="get" action="map.html">
+
+          <div class="field">
+            <label for="username">Apprentice name</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <div class="check">
+            <input type="checkbox" id="remember" name="remember" />
+            <label for="remember">Remember me</label>
+          </div>
+
+          <button type="submit" class="primary-btn">
+            Enter the sanctuary
+          </button>
+
+        </form>
+
+        <p class="auth-switch">
+          New apprentice?
+          <a href="register.html">Create an account</a>
+        </p>
+
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <hr />
+      <div class="footer-inner">
+        <p>Quantum Sanctuary · Shania Ziegler</p>
+        <p>
+          <a href="https://github.com/Shania-Ziegler/startup"
+             target="_blank"
+             rel="noopener noreferrer">
+            GitHub
+          </a>
+        </p>
+      </div>
+    </footer>
+
+  </div>
 </body>
 
 </html>

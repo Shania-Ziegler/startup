@@ -4,77 +4,151 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Quantum ideas and hardware entries unlocked through play." />
-  <title>Quantum Sanctuary - Journal</title>
+  <meta name="description" content="Quantum discoveries recorded while restoring the sanctuary." />
+  <title>Journal - Quantum Sanctuary</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
+  <a class="skip-link visually-hidden-focusable" href="#main">Skip to main content</a>
 
-  <header>
-    <h1>Quantum Sanctuary</h1>
-    <p>Player: <span id="player-name">Guest</span></p>
-    <nav>
-      <ul>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="map.html">Sanctuary</a></li>
-        <li><a href="chamber.html">Chamber</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.html">Logout</a></li>
-      </ul>
-    </nav>
-    <hr />
-  </header>
+  <div class="shell">
 
-  <main>
+    <header class="site-header">
+      <div class="topbar">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1>Quantum Sanctuary</h1>
+            <p class="player-line">Apprentice <span id="player-name">Guest</span></p>
+          </div>
+        </div>
 
-    <h2>Journal</h2>
-    <p>Entries unlock as you experiment in the chambers.</p>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="journal.html" aria-current="page">Journal</a></li>
+            <li><a href="map.html">Sanctuary</a></li>
+            <li><a href="chamber.html">Chamber</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
 
-    <section>
-      <h3>Quantum ideas</h3>
-      <dl>
-        <dt>State</dt>
-        <dd>A particle can be in one of two states, or a mix of both at once.</dd>
+      <hr />
+    </header>
 
-        <dt>Measurement</dt>
-        <dd>Measuring forces the particle to pick one state, and the answer is not always the same.</dd>
+    <main id="main">
 
-        <dt>Energy</dt>
-        <dd>Locked</dd>
+      <div class="page-heading">
+        <p class="eyebrow">Apprentice journal</p>
+        <h2>Field notes</h2>
+        <p>Notes from your experiments in the sanctuary.</p>
+      </div>
 
-        <dt>Noise</dt>
-        <dd>Locked</dd>
-      </dl>
-    </section>
+      <!--
+        Entries are placeholders. React will unlock notes as the player
+        experiments, e.g. carrier transition, red sideband, blue sideband.
+      -->
+      <div class="journal-grid">
 
-    <section>
-      <h3>Hardware</h3>
-      <dl>
-        <dt>Trapped ion</dt>
-        <dd>A charged atom held still by electric fields and controlled with lasers.</dd>
+        <section aria-labelledby="concepts-title">
+          <h3 id="concepts-title">Concepts</h3>
 
-        <dt>Neutral atoms</dt>
-        <dd>Locked</dd>
+          <dl class="journal-list">
 
-        <dt>Photons</dt>
-        <dd>Locked</dd>
+            <div class="journal-entry">
+              <dt>State</dt>
+              <dd>
+                A quantum system has an internal state. Pulses can change
+                which state Lumi occupies.
+              </dd>
+              <dd class="note-source">
+                <span class="note-source-label">Observed in</span>
+                Quiet Chamber · Trapped ion
+              </dd>
+            </div>
 
-        <dt>Superconducting circuits</dt>
-        <dd>Locked</dd>
+            <div class="journal-entry">
+              <dt>Measurement</dt>
+              <dd>
+                Measurement reveals an outcome from the quantum system.
+                Repeated measurements do not always have to agree.
+              </dd>
+            </div>
 
-        <dt>Silicon qubits</dt>
-        <dd>Locked</dd>
-      </dl>
-    </section>
+            <div class="journal-entry is-locked">
+              <dt>Motion</dt>
+              <dd>Not encountered yet.</dd>
+            </div>
 
-  </main>
+            <div class="journal-entry is-locked">
+              <dt>Noise</dt>
+              <dd>Not encountered yet.</dd>
+            </div>
 
-  <footer>
-    <hr />
-    <p>Shania Ziegler</p>
-    <p><a href="https://github.com/Shania-Ziegler/startup" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-  </footer>
+          </dl>
+        </section>
 
+        <section aria-labelledby="hardware-title">
+          <h3 id="hardware-title">Hardware</h3>
+
+          <dl class="journal-list">
+
+            <div class="journal-entry">
+              <dt>Trapped ion</dt>
+              <dd>
+                A charged atom held by electric fields and controlled using
+                carefully tuned laser light.
+              </dd>
+              <dd class="note-source">
+                <span class="note-source-label">Observed in</span>
+                Quiet Chamber
+              </dd>
+            </div>
+
+            <div class="journal-entry is-locked">
+              <dt>Neutral atoms</dt>
+              <dd>Not encountered yet.</dd>
+            </div>
+
+            <div class="journal-entry is-locked">
+              <dt>Photons</dt>
+              <dd>Not encountered yet.</dd>
+            </div>
+
+            <div class="journal-entry is-locked">
+              <dt>Superconducting circuits</dt>
+              <dd>Not encountered yet.</dd>
+            </div>
+
+            <div class="journal-entry is-locked">
+              <dt>Silicon spin qubits</dt>
+              <dd>Not encountered yet.</dd>
+            </div>
+
+          </dl>
+        </section>
+
+      </div>
+
+    </main>
+
+    <footer class="site-footer">
+      <hr />
+      <div class="footer-inner">
+        <p>Quantum Sanctuary · Shania Ziegler</p>
+        <p>
+          <a href="https://github.com/Shania-Ziegler/startup"
+             target="_blank"
+             rel="noopener noreferrer">
+            GitHub
+          </a>
+        </p>
+      </div>
+    </footer>
+
+  </div>
 </body>
 
 </html>

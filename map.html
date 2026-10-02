@@ -4,86 +4,205 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="The sanctuary map showing all five quantum hardware chambers and your progress." />
-  <title>Quantum Sanctuary - Map</title>
+  <meta name="description" content="Explore the five chambers of Quantum Sanctuary." />
+  <title>Sanctuary - Quantum Sanctuary</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
-  <header>
-    <h1>Quantum Sanctuary</h1>
-    <p>Player: <span id="player-name">Guest</span></p>
-    <nav>
-      <ul>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="map.html">Sanctuary</a></li>
-        <li><a href="chamber.html">Chamber</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.html">Logout</a></li>
-      </ul>
-    </nav>
-    <hr />
-  </header>
+  <a class="skip-link visually-hidden-focusable" href="#main">Skip to main content</a>
 
-  <main>
+  <div class="shell">
 
-    <section>
-      <h2>Sanctuary Map</h2>
-      <img src="sketch-map.png" alt="Map showing 5 chambers of the game which the user can explore"
-        width="500" />
-    </section>
+    <header class="site-header">
+      <div class="topbar">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1>Quantum Sanctuary</h1>
+            <p class="player-line">Apprentice <span id="player-name">Guest</span></p>
+          </div>
+        </div>
 
-    <section>
-      <h2>Chambers</h2>
-      <ul>
-        <li><a href="chamber.html">Quiet Chamber</a> - trapped ion - open</li>
-        <li>Lantern Grove - neutral atoms - locked</li>
-        <li>Glass Halls - photons - locked</li>
-        <li>Frozen Spire - superconducting - locked</li>
-        <li>Lattice - silicon qubits - locked</li>
-      </ul>
-    </section>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="map.html" aria-current="page">Sanctuary</a></li>
+            <li><a href="chamber.html">Chamber</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
 
-    <!-- Database placeholder MongoDB -->
-    <section>
-      <h2>Progress</h2>
-      <p>
-        <label for="progress">Chambers restored:</label>
-        <meter id="progress" min="0" max="5" value="0">0 of 5</meter>
-      </p>
+      <hr />
+    </header>
 
-      <h3>Best scores</h3>
-      <table>
-        <caption>Top player scores</caption>
-        <thead>
-          <tr>
-            <th scope="col">Player</th>
-            <th scope="col">Chamber</th>
-            <th scope="col">Fewest pulses</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ana</td>
-            <td>Quiet Chamber</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>Ben</td>
-            <td>Quiet Chamber</td>
-            <td>4</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <main id="main">
 
-  </main>
+      <div class="page-heading">
+        <p class="eyebrow">Your sanctuary</p>
+        <h2>Five chambers have gone quiet.</h2>
+        <p>
+          Restore each quantum spirit to reopen the path through the sanctuary.
+          Your first light still shines in the Quiet Chamber.
+        </p>
+      </div>
 
-  <footer>
-    <hr />
-    <p>Shania Ziegler</p>
-    <p><a href="https://github.com/Shania-Ziegler/startup" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-  </footer>
+      <section class="panel map-panel" aria-labelledby="map-title">
+        <div class="map-heading">
+          <h3 id="map-title">Sanctuary map</h3>
+          <p>1 of 5 chambers open</p>
+        </div>
 
+        <div class="sanctuary-map">
+          <svg class="map-path" aria-hidden="true" focusable="false">
+            <line x1="10%" y1="78" x2="30%" y2="238" />
+            <line x1="30%" y1="238" x2="50%" y2="78" />
+            <line x1="50%" y1="78" x2="70%" y2="238" />
+            <line x1="70%" y1="238" x2="90%" y2="78" />
+          </svg>
+
+          <ol class="map-stops" aria-label="Path through the sanctuary">
+            <li class="map-stop">
+              <a class="map-node is-open" href="chamber.html">
+                <span class="map-node-name">Quiet Chamber</span>
+                <span class="map-node-kind">Trapped ion</span>
+                <span class="status status-open">Open</span>
+              </a>
+            </li>
+
+            <li class="map-stop">
+              <div class="map-node">
+                <span class="map-node-name">Lantern Grove</span>
+                <span class="map-node-kind">Neutral atoms</span>
+                <span class="status">Locked</span>
+              </div>
+            </li>
+
+            <li class="map-stop">
+              <div class="map-node">
+                <span class="map-node-name">Glass Halls</span>
+                <span class="map-node-kind">Photons</span>
+                <span class="status">Locked</span>
+              </div>
+            </li>
+
+            <li class="map-stop">
+              <div class="map-node">
+                <span class="map-node-name">Frozen Spire</span>
+                <span class="map-node-kind">Superconducting</span>
+                <span class="status">Locked</span>
+              </div>
+            </li>
+
+            <li class="map-stop">
+              <div class="map-node">
+                <span class="map-node-name">Lattice</span>
+                <span class="map-node-kind">Silicon qubits</span>
+                <span class="status">Locked</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <div class="two-column">
+
+        <section aria-labelledby="chambers-title">
+          <h3 id="chambers-title">Chambers</h3>
+
+          <ul class="chamber-list">
+
+            <li>
+              <a href="chamber.html">Quiet Chamber</a>
+              <span class="kind">Trapped ion</span>
+              <span class="status status-open">Open</span>
+            </li>
+
+            <li>
+              <span>Lantern Grove</span>
+              <span class="kind">Neutral atoms</span>
+              <span class="status">Locked</span>
+            </li>
+
+            <li>
+              <span>Glass Halls</span>
+              <span class="kind">Photons</span>
+              <span class="status">Locked</span>
+            </li>
+
+            <li>
+              <span>Frozen Spire</span>
+              <span class="kind">Superconducting circuits</span>
+              <span class="status">Locked</span>
+            </li>
+
+            <li>
+              <span>Lattice</span>
+              <span class="kind">Silicon spin qubits</span>
+              <span class="status">Locked</span>
+            </li>
+
+          </ul>
+        </section>
+
+        <!-- MongoDB data placeholder -->
+        <section aria-labelledby="progress-title">
+          <h3 id="progress-title">Restoration progress</h3>
+
+          <p id="progress-label" class="progress-count">0 of 5 chambers restored</p>
+
+          <meter id="progress" min="0" max="5" value="0" aria-labelledby="progress-label">
+            0 of 5
+          </meter>
+
+          <table>
+            <caption>Fewest pulses</caption>
+
+            <thead>
+              <tr>
+                <th scope="col">Apprentice</th>
+                <th scope="col">Chamber</th>
+                <th scope="col">Pulses</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <th scope="row">Ana</th>
+                <td>Quiet Chamber</td>
+                <td>3</td>
+              </tr>
+
+              <tr>
+                <th scope="row">Ben</th>
+                <td>Quiet Chamber</td>
+                <td>4</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </section>
+      </div>
+
+    </main>
+
+    <footer class="site-footer">
+      <hr />
+      <div class="footer-inner">
+        <p>Quantum Sanctuary · Shania Ziegler</p>
+        <p>
+          <a href="https://github.com/Shania-Ziegler/startup"
+             target="_blank"
+             rel="noopener noreferrer">
+            GitHub
+          </a>
+        </p>
+      </div>
+    </footer>
+
+  </div>
 </body>
 
 </html>

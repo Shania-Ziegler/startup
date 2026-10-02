@@ -4,56 +4,115 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Create a new player account for Quantum Sanctuary." />
-  <title>Quantum Sanctuary - Register</title>
+  <meta name="description" content="Become an apprentice in Quantum Sanctuary." />
+  <title>New Apprentice - Quantum Sanctuary</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
+  <a class="skip-link visually-hidden-focusable" href="#main">Skip to main content</a>
 
-  <header>
-    <h1>Quantum Sanctuary</h1>
-    <p>Player: <span id="player-name">Guest</span></p>
-    <nav>
-      <ul>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="map.html">Sanctuary</a></li>
-        <li><a href="chamber.html">Chamber</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.html">Logout</a></li>
-      </ul>
-    </nav>
-    <hr />
-  </header>
+  <div class="shell">
 
-  <main>
-    <section>
-      <h2>New Player</h2>
-      <!-- Placeholder registration. Becomes a POST to the auth endpoint in the Service deliverable. -->
-      <form method="post" action="map.html">
-        <div>
-          <label for="new-username">Username:</label>
-          <input type="text" id="new-username" name="username" placeholder="Username" required />
+    <header class="site-header">
+      <div class="topbar">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1>Quantum Sanctuary</h1>
+            <p class="player-line">A puzzle sanctuary for quantum spirits</p>
+          </div>
         </div>
-        <div>
-          <label for="new-password">Password:</label>
-          <input type="password" id="new-password" name="password" placeholder="Password" required />
-        </div>
-        <div>
-          <label for="confirm-password">Confirm password:</label>
-          <input type="password" id="confirm-password" name="confirm" placeholder="Confirm password" required />
-        </div>
-        <button type="submit">Create account</button>
-      </form>
-      <p>Already a Player? <a href="index.html">Login</a></p>
-    </section>
-  </main>
 
-  <footer>
-    <hr />
-    <p>Shania Ziegler</p>
-    <p><a href="https://github.com/Shania-Ziegler/startup" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-  </footer>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
 
+      <hr />
+    </header>
+
+    <main id="main" class="auth-main">
+
+      <section class="panel login-card" aria-labelledby="register-title">
+
+        <div class="auth-copy">
+          <p class="eyebrow">Begin your apprenticeship</p>
+          <h2 id="register-title">Join the sanctuary.</h2>
+          <p>Your restored chambers and best sequences will be saved here.</p>
+        </div>
+
+        <!-- Placeholder registration. Becomes POST auth in Service deliverable. -->
+        <form method="get" action="map.html">
+
+          <div class="field">
+            <label for="new-username">Apprentice name</label>
+            <input
+              type="text"
+              id="new-username"
+              name="username"
+              placeholder="Username"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="new-password">Password</label>
+            <input
+              type="password"
+              id="new-password"
+              name="password"
+              placeholder="Password"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="confirm-password">Confirm password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm"
+              placeholder="Confirm password"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="primary-btn">
+            Begin apprenticeship
+          </button>
+
+        </form>
+
+        <p class="auth-switch">
+          Already an apprentice?
+          <a href="index.html">Sign in</a>
+        </p>
+
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <hr />
+      <div class="footer-inner">
+        <p>Quantum Sanctuary · Shania Ziegler</p>
+        <p>
+          <a href="https://github.com/Shania-Ziegler/startup"
+             target="_blank"
+             rel="noopener noreferrer">
+            GitHub
+          </a>
+        </p>
+      </div>
+    </footer>
+
+  </div>
 </body>
 
 </html>
