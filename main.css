@@ -586,6 +586,7 @@ input:focus {
 }
 
 .sanctuary-map {
+  /* The path's <line> y values in map.html are derived from these three */
   --node-height: 124px;
   --map-high: 16px;
   --map-low: 176px;

@@ -56,6 +56,12 @@
         </div>
 
         <div class="sanctuary-map">
+          <!--
+            Line ends sit at chamber centers. x = the five column centers.
+            y = --map-high + --node-height / 2 (78) for high chambers and
+            --map-low + --node-height / 2 (238) for low ones (see main.css).
+            Line coordinates are SVG attributes, so they cannot live in CSS.
+          -->
           <svg class="map-path" aria-hidden="true" focusable="false">
             <line x1="10%" y1="78" x2="30%" y2="238" />
             <line x1="30%" y1="238" x2="50%" y2="78" />
