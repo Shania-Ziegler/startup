@@ -297,6 +297,98 @@ Changing color of second level headings - we provide a descendant combinator tha
 
 So the selector would be all h2 elements that are descendants of section elements 
 
+| Combinator | Meaning | Example | Description |
+| :--- | :--- | :--- | :--- |
+| Descendant | A list of descendants | `body section` | Any section that is a descendant of a body |
+| Child | A list of direct children | `section > p` | Any p that is a direct child of a section |
+| General sibling | A list of siblings | `div ~ p` | Any p that has a div sibling |
+| Adjacent sibling | A list of adjacent sibling | `div + p` | Any p that has an adjacent div sibling |
+
+A CSS class selector targets html elements that share a specific class attribute written by prefixing the class name with a period
+
+
+ID selectors reference the ID of an element.
+
+To use the ID selector you prefix the ID with the hash symbol (#)
+
+CSS attribute selectors allow you to target HTML elements based on the presence, exact value, or partial value of their attributes. You use an attribute selector to select any element with a given attribute (a[href]).
+
+<div class="container"> <p>Paragraph 1</p> <section> <p>Paragraph 2</p> </section> </div>
+
+to apply a style only to Paragraph 1 while leaving Paragraph 2 unaffected you use .container > p the (>) is a child combinator. Because Paragraph 1 is a direct child of .container div this selector targets it. 
+
+Paragraph 2 on the other hand is nested inside a <section> element this makes it a descendent but not a direct child. 
+
+Pseudo selectors target a state or a part of an element rather than the element itself.
+
+button:hover { background: black; }      /* while the mouse is over it */
+input:focus { outline: 2px solid; }      /* while it is selected */
+tr:last-child { border: none; }          /* position in a list */
+input::placeholder { color: grey; }      /* part of an element */
+li::before { content: "1"; }             /* generated content */
+
+Specificity decides which rule wins when two rules target the same element.
+Inline style beats ID beats class beats element. If two rules have the same
+specificity, the one written last wins. That is the "cascading" part of CSS.
+
+The box model: every element is a box made of content, padding, border, and
+margin, in that order from the inside out. Setting box-sizing: border-box makes
+width include the padding and border, which is why most stylesheets start with:
+
+* { box-sizing: border-box; }
+
+Units
+px is fixed. rem is relative to the root font size. % is relative to the parent.
+vw and vh are percentages of the viewport width and height. Relative units are
+what make a layout respond to screen size.
+
+Custom properties (CSS variables) hold values you reuse:
+
+:root { --ink: #16160f; }
+body { color: var(--ink); }
+
+Change the variable once and everything using it updates.
+
+Flexbox is one dimensional, for a row or a column.
+  display: flex; justify-content (main axis); align-items (cross axis);
+  flex-wrap: wrap makes items drop to the next line instead of overflowing.
+
+Grid is two dimensional, for rows and columns at once.
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  The fr unit is a fraction of the leftover space. auto-fit plus minmax is a
+  responsive grid with no media query needed.
+
+Media queries apply rules only when a condition is met:
+
+@media (max-width: 820px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+Animation
+transition smooths a change between two states.
+@keyframes defines a named sequence that animation runs.
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.sprite { animation: float 5s ease-in-out infinite; }
+
+transform is the less expensive way to move or scale something, because the browser does
+not have to recalculate the layout.
+
+Importing a font
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+body { font-family: 'Quicksand', sans-serif; }
+
+Always end a font stack with a generic family in case the font fails to load.
+
+Debugging
+Open dev tools, Elements tab. Overridden rules show with a strikethrough, which
+tells you a more specific rule won. The Computed tab shows the final values and
+the box model measurements.
+
 ## Javascript
 In 1995 Netscape (the maker of the popular browser Navigator) decided to add the ability to script web pages. The initial implementation was led by Brendan Eich and given the name JavaScript. JavaScript turned the previously static web into an interactive experience where a web page could dynamically change based upon a user's interaction.
 
