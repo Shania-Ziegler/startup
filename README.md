@@ -101,7 +101,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 - [x] **Visually appealing colors and layout. No overflowing elements.** 
-- [x] **Use of a CSS framework**
+- [x] **Use of a CSS framework** - Bootstrap 5.3 is imported at the top of `main.css` and used for accessibility utilities, including screen-reader-only text (`visually-hidden`) and the keyboard-focusable "Skip to main content" link (`visually-hidden-focusable`) on every page. The application's visual design is implemented with custom CSS.
 - [x] **All visual elements styled using CSS** 
 - [x] **Responsive to window resizing using flexbox and/or grid display**
 - [x] **Use of a imported font** 

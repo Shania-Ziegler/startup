@@ -44,7 +44,13 @@
           <p>Sign in to continue restoring the quantum spirits.</p>
         </div>
 
-        <!-- Placeholder login. Becomes POST auth in Service deliverable. -->
+        <!--
+          Placeholder login: no authentication happens yet. Only the username
+          is sent with this GET so the next page can show it; the password
+          field deliberately has no name attribute, so the browser never puts
+          it in the URL. The Service deliverable switches this form to
+          method="post" against the login endpoint and names the password.
+        -->
         <form method="get" action="map.html">
 
           <div class="field">
@@ -64,7 +70,6 @@
             <input
               type="password"
               id="password"
-              name="password"
               placeholder="Password"
               autocomplete="current-password"
               required

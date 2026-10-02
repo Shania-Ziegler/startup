@@ -44,7 +44,13 @@
           <p>Your restored chambers and best sequences will be saved here.</p>
         </div>
 
-        <!-- Placeholder registration. Becomes POST auth in Service deliverable. -->
+        <!--
+          Placeholder registration: no account is created yet. Only the
+          username is sent with this GET; both password fields deliberately
+          have no name attribute, so the browser never puts them in the URL.
+          The Service deliverable switches this form to method="post"
+          against the registration endpoint and names the password fields.
+        -->
         <form method="get" action="map.html">
 
           <div class="field">
@@ -64,7 +70,6 @@
             <input
               type="password"
               id="new-password"
-              name="password"
               placeholder="Password"
               autocomplete="new-password"
               required
@@ -76,7 +81,6 @@
             <input
               type="password"
               id="confirm-password"
-              name="confirm"
               placeholder="Confirm password"
               autocomplete="new-password"
               required
