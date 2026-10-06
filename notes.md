@@ -490,6 +490,18 @@ Linker: Combines multiple object files and external libraries into a single exec
 Debugger: Allows developers to observe the execution of the program to identify and fix logic errors.
 Build Automation (e.g., Make, Cargo): Orchestrates the execution of the various tools in the correct order.
 
+Some common functional pieces in a web application tool chain include:
+
+Code repository - Stores code in a shared, versioned location.
+Linter - Removes, or warns of, non-idiomatic code usage.
+Prettier - Formats code according to a shared standard.
+Transpiler - Compiles code into a different format. For example, from JSX to JavaScript, TypeScript to JavaScript, or SCSS to CSS.
+Polyfill - Generates backward compatible code for supporting old browser versions that do not support the latest standards.
+Bundler - Packages code into bundles for delivery to the browser. This enables compatibility (for example with ES6 module support), or performance (with lazy loading).
+Minifier - Removes whitespace and renames variables in order to make code smaller and more efficient to deploy.
+Testing - Automated tests at multiple levels to ensure correctness.
+Deployment - Automated packaging and delivery of code from the development environment to the production environment.
+
 
 ## Technology Stack 
 
