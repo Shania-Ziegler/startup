@@ -414,6 +414,22 @@ Linking an external .js file is excellent for keeping projects organized and you
 
 One of the simplest ways to debug JavaScript code is to insert console.log functions that output the state of the code as it executes.
 
+Special bonus in website perfomance:
+When Adding JavaScript to HTML via external files, professional developers use minification to optimize performance.
+
+What it does: Removes whitespace, comments, and shortens variable names to reduce file size.
+Why use it: Faster load times for users.
+Naming Convention: Minified files usually end in .min.js (e.g., app.min.js).
+Debugging: Use Source Maps to link the minified code back to your readable "source" code in browser DevTools.
+Implementation Example:
+
+
+<!-- Development: Use the readable version -->
+<script src="js/main.js"></script>
+
+<!-- Production: Use the minified version for speed -->
+<script src="js/main.min.js"></script>
+
 ## Node.js
 In 2009 Ryan Dahl created Node.js as the first successful application for deploying JavaScript outside of a browser.
 
