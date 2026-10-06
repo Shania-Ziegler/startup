@@ -412,13 +412,39 @@ There is three primary ways to include JavaScript in HTML: using a < script > bl
 
 Linking an external .js file is excellent for keeping projects organized and your code reusable. Internal blocks and inline handlers are often used for quick scripts or specific event triggers, like the onclick attribute.
 
-
+One of the simplest ways to debug JavaScript code is to insert console.log functions that output the state of the code as it executes.
 
 ## Node.js
 In 2009 Ryan Dahl created Node.js as the first successful application for deploying JavaScript outside of a browser.
 
 You can execute a line of JavaScript with Node.js from your console with the -e parameter.
 One example: node -e "console.log(1+1)" which outputs 2
+
+While you could write all of the JavaScript for everything you need, it is always helpful to use preexisting packages of JavaScript for implementing common tasks.
+
+Another example
+Location: ~/CS260/startup/npmtest
+Entry Point: index.js (defined in package.json)
+Command: node index.js
+Purpose: Runs the JavaScript code through the Node engine and prints any results (like console.log) to the console.
+
+There is also package.json.
+ This file contains three main things Firstly Metadata about theproject such as its name and the default entry JavaScript file, 2 commands (scripts) that you can execute to do things like run, test, or distribute your code, and 3 packages that this project depends upon.
+
+To update package.json you can install the package using npm install followed by the name of the package. 
+Finding packages is as easy as going to the NPM website
+Then using npm install <your-package name here> 
+
+If you rexamine the contents of the package.json file you will see a reference to the newly installed package dependency. If you decide you no longer want a package dependency you can always remove it with the npm uninstall <package name here> console command.
+
+Make sure you include node_modules in your .gitignore file as this will start getting big quickly.
+
+When you clone your source code from GitHub to a new location, the first thing you should do is run npm install in the project directory. This will cause NPM to download all of the previously installed packages and recreate the node_modules directory.
+
+The package-lock.json file tracks the version of the package that you installed. That way if you rebuild your node_modules directory you will have the version of the package you initially installed and not the latest available version, which might not be compatible with your code.
+
+With NPM and a package of your choice installed, you can now use this package in a JavaScript file by referencing the package name as a parameter to the require function. This is then followed by a call to the object in the example they use joke so the objects joke getRandomDadJoke function to actually generate a joke. 
+
 
 
 ## Technology Stack 
