@@ -463,6 +463,9 @@ The package-lock.json file tracks the version of the package that you installed.
 
 With NPM and a package of your choice installed, you can now use this package in a JavaScript file by referencing the package name as a parameter to the require function. This is then followed by a call to the object in the example they use joke so the objects joke getRandomDadJoke function to actually generate a joke. 
 
+Node.js is part of the backend running on EC2 webservice in Ohio
+You can start Node with the watch option. This causes Node to watch all your source code files and automatically reload itself if anything changes. Which is helpful for live reloading.
+
 
 
 ## Technology Stack 
