@@ -479,6 +479,16 @@ Like Vue, Svelte combines HTML, CSS, and JavaScript into a single file. The diff
 As for React
 React combines JavaScript and HTML into its component format. CSS must be declared outside of the JSX file. The component itself leverages the functionality of JavaScript and can be represented as a function or class.
 
+A toolchain is a collection of distinct software development tools that are linked together to perform a complex task, most commonly the transformation of source code into a functional application. Instead of a single monolithic program, a toolchain relies on a pipeline where the output of one utility becomes the input for the next
+
+
+ A standard toolchain generally includes the following components:
+
+Compiler: Translates high-level source code into assembly language or intermediate representation.
+Assembler: Converts assembly code into machine-level object files (binary data).
+Linker: Combines multiple object files and external libraries into a single executable or shared library.
+Debugger: Allows developers to observe the execution of the program to identify and fix logic errors.
+Build Automation (e.g., Make, Cargo): Orchestrates the execution of the various tools in the correct order.
 
 
 ## Technology Stack 
