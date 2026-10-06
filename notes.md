@@ -402,6 +402,11 @@ console.log(join(1, 2));
 console.log(join('hello', ' ', 'world', '!'));
 
 
+There is three primary ways to include JavaScript in HTML: using a < script > block for internal code, the src attribute to link an external file, and inline event attribute handlers for direct interaction.
+
+Linking an external .js file is excellent for keeping projects organized and your code reusable. Internal blocks and inline handlers are often used for quick scripts or specific event triggers, like the onclick attribute.
+
+
 
 ## Node.js
 In 2009 Ryan Dahl created Node.js as the first successful application for deploying JavaScript outside of a browser.
