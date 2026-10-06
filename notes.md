@@ -390,6 +390,12 @@ tells you a more specific rule won. The Computed tab shows the final values and
 the box model measurements.
 
 ## Javascript
+
+Officially known as ECMAScript, JavaScript is a weakly typed language based upon concepts found in C, Java, and Scheme.  
+
+JavaScript is executed using an interpreter at runtime instead of compiling it into a machine specific binary at build time.
+This has the advantage of making JavaScript very portable, but also allows for many errors, such as using an undefined variable
+
 In 1995 Netscape (the maker of the popular browser Navigator) decided to add the ability to script web pages. The initial implementation was led by Brendan Eich and given the name JavaScript. JavaScript turned the previously static web into an interactive experience where a web page could dynamically change based upon a user's interaction.
 
 Below is an example of a simple JavaScript program that combines variables and prints out the result from CS 260 Webprogramming MLS site:
