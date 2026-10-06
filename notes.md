@@ -430,6 +430,8 @@ Implementation Example:
 <!-- Production: Use the minified version for speed -->
 <script src="js/main.min.js"></script>
 
+Note that while minification is great for professional websites, it creates unnecessary hurdles while you are still learning the basics of Adding JavaScript to HTML.
+
 ## Node.js
 In 2009 Ryan Dahl created Node.js as the first successful application for deploying JavaScript outside of a browser.
 
