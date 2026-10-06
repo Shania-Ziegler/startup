@@ -417,6 +417,8 @@ Linking an external .js file is excellent for keeping projects organized and you
 ## Node.js
 In 2009 Ryan Dahl created Node.js as the first successful application for deploying JavaScript outside of a browser.
 
+You can execute a line of JavaScript with Node.js from your console with the -e parameter.
+One example: node -e "console.log(1+1)" which outputs 2
 
 
 ## Technology Stack 
