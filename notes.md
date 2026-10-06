@@ -466,6 +466,19 @@ With NPM and a package of your choice installed, you can now use this package in
 Node.js is part of the backend running on EC2 webservice in Ohio
 You can start Node with the watch option. This causes Node to watch all your source code files and automatically reload itself if anything changes. Which is helpful for live reloading.
 
+For example use: node --watch main.js
+
+We will be using the web framework React.
+
+However below are some other common ones
+
+Vue combines HTML, CSS, and JavaScript into a single file. HTML is represented by a template element that can be aggregated into other templates.
+
+Like Vue, Svelte combines HTML, CSS, and JavaScript into a single file. The difference here is that Svelte requires a transpiler to generate browser-ready code, instead of a runtime virtual DOM.
+
+As for React
+React combines JavaScript and HTML into its component format. CSS must be declared outside of the JSX file. The component itself leverages the functionality of JavaScript and can be represented as a function or class.
+
 
 
 ## Technology Stack 
