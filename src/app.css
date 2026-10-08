@@ -191,8 +191,6 @@ main {
   font-weight: 600;
   text-decoration: none;
 }
-
-/* Quiet text-style button: Step, Undo, hints */
 .text-btn {
   min-height: var(--tap);
   padding: 0 0.6rem;
@@ -249,9 +247,6 @@ main {
   font-weight: 600;
 }
 
-/* ============================================================
-   Header and navigation
-   ============================================================ */
 
 .site-header {
   padding-top: 1.25rem;
@@ -277,7 +272,6 @@ main {
   min-width: 0;
 }
 
-/* The logo is Lumi herself: a ring with two dot eyes */
 .brand-mark {
   position: relative;
 
@@ -378,9 +372,6 @@ main {
   background: var(--line);
 }
 
-/* ============================================================
-   Containers: used only where a real boundary exists
-   ============================================================ */
 
 .panel {
   padding: 1.5rem;
@@ -400,9 +391,6 @@ main {
   gap: 3rem 4rem;
 }
 
-/* ============================================================
-   Login and registration
-   ============================================================ */
 
 .auth-main {
   display: grid;
@@ -456,7 +444,6 @@ input[type="password"] {
   color: var(--text);
   background: var(--surface-raised);
 
-  /* 16px keeps iOS from zooming into the field */
   font-size: 1rem;
 
   transition: background-color 120ms ease;
@@ -548,10 +535,6 @@ input:focus {
   color: var(--text);
   font-weight: 600;
 }
-
-/* ============================================================
-   Sanctuary map: the one defined game area on the page
-   ============================================================ */
 
 .map-panel {
   padding: 1.5rem 1.5rem 1.75rem;
@@ -683,9 +666,6 @@ input:focus {
   transform: translateY(-2px);
 }
 
-/* ============================================================
-   Chamber list, progress, and scores
-   ============================================================ */
 
 .chamber-list {
   margin: 0;
@@ -832,9 +812,6 @@ thead th {
   font-weight: 500;
 }
 
-/* ============================================================
-   Chamber
-   ============================================================ */
 
 /* The puzzle sits directly on the page; Bit and activity form a quieter column */
 .layout {
@@ -860,8 +837,6 @@ thead th {
   margin: 0.15rem 0 0;
   color: var(--text-faint);
 }
-
-/* Lumi and the target are the focal point: big, quiet, and roomy */
 .stage {
   max-width: 620px;
   margin: 0 auto;
@@ -936,8 +911,6 @@ thead th {
 .lumi::after {
   right: 33%;
 }
-
-/* Once the pointer is tracked, the idle glance gives way */
 .lumi.is-watching::before,
 .lumi.is-watching::after {
   animation: none;
@@ -959,7 +932,6 @@ thead th {
   animation: lumi-motion-3 0.18s linear infinite;
 }
 
-/* Same character, shown as a goal: dashed and dimmed, holding still */
 .lumi-target {
   border-style: dashed;
   border-color: var(--text-secondary);
@@ -1240,10 +1212,6 @@ thead th {
   border-top: 1px solid var(--line);
 }
 
-/* ============================================================
-   Journal: two pages of notes, not two widgets
-   ============================================================ */
-
 .journal-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1283,7 +1251,6 @@ thead th {
   font-style: italic;
 }
 
-/* Where a note was learned, so the journal works as a reference */
 .journal-entry .note-source {
   margin-top: 0.6rem;
 
@@ -1298,9 +1265,6 @@ thead th {
   font-weight: 500;
 }
 
-/* ============================================================
-   About: editorial column
-   ============================================================ */
 
 .about {
   max-width: 820px;
@@ -1352,9 +1316,8 @@ thead th {
   font-size: 0.9rem;
 }
 
-/* ============================================================
-   Footer
-   ============================================================ */
+
+
 
 .site-footer {
   padding-bottom: 1.5rem;
@@ -1387,9 +1350,6 @@ thead th {
   color: var(--text-secondary);
 }
 
-/* ============================================================
-   Motion
-   ============================================================ */
 
 @keyframes lumi-motion-0 {
   0%,
@@ -1456,7 +1416,7 @@ thead th {
   }
 }
 
-/* !important is needed here so this wins over every component animation */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1467,17 +1427,6 @@ thead th {
   }
 }
 
-/* ============================================================
-   Responsive
-   Three project breakpoints, widest first:
-     992px  tablet: the chamber sidebar drops below the puzzle and
-            two-column page sections stack
-     767px  phone: 768px tablets keep the tablet layout; below that the
-            header, map, chamber controls, and tables switch to
-            single-column phone layouts
-     359px  narrow phone (320px class): Lumi and the target no longer
-            fit side by side, so they stack; gutters tighten
-   ============================================================ */
 
 @media (max-width: 992px) {
   .layout,
@@ -1516,7 +1465,6 @@ thead th {
     padding: 1.75rem 0 2.5rem;
   }
 
-  /* Header: brand on its own line, five links as a 3-column grid */
   .topbar {
     flex-direction: column;
     align-items: stretch;
@@ -1536,7 +1484,6 @@ thead th {
     padding: 1.1rem;
   }
 
-  /* Map: a vertical path, not a squeezed desktop map */
   .map-path {
     display: none;
   }
@@ -1588,8 +1535,6 @@ thead th {
     grid-column: 2;
     margin: 0;
   }
-
-  /* Chamber: smaller Lumi, 2x2 sequence, stacked pulses and controls */
   .stage {
     padding: 2.75rem 0 2.5rem;
     gap: 0.75rem;
@@ -1641,7 +1586,6 @@ thead th {
     flex-direction: column;
   }
 
-  /* Bit, then shared activity, below the puzzle */
   .side-stack {
     grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
