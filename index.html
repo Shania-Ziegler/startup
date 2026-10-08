@@ -4,113 +4,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Enter Quantum Sanctuary and learn quantum hardware through puzzles." />
+  <meta name="description" content="Learn how quantum computer hardware works through interactive puzzles." />
   <title>Quantum Sanctuary</title>
-  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
-  <a class="skip-link visually-hidden-focusable" href="#main">Skip to main content</a>
-
-  <div class="shell">
-
-    <header class="site-header">
-      <div class="topbar">
-        <div class="brand-row">
-          <div class="brand-mark" aria-hidden="true"></div>
-          <div>
-            <h1>Quantum Sanctuary</h1>
-            <p class="player-line">A puzzle sanctuary for quantum spirits</p>
-          </div>
-        </div>
-
-        <nav aria-label="Main navigation">
-          <ul class="nav-list">
-            <li><a href="about.html">About</a></li>
-          </ul>
-        </nav>
-      </div>
-
-      <hr />
-    </header>
-
-    <main id="main" class="auth-main">
-
-      <section class="panel login-card" aria-labelledby="login-title">
-
-        <div class="auth-copy">
-          <p class="eyebrow">The sanctuary is waiting</p>
-          <h2 id="login-title">Welcome, apprentice.</h2>
-          <p>Sign in to continue restoring the quantum spirits.</p>
-        </div>
-
-        <!--
-          Placeholder login: no authentication happens yet. Only the username
-          is sent with this GET so the next page can show it; the password
-          field deliberately has no name attribute, so the browser never puts
-          it in the URL. The Service deliverable switches this form to
-          method="post" against the login endpoint and names the password.
-        -->
-        <form method="get" action="map.html">
-
-          <div class="field">
-            <label for="username">Apprentice name</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Username"
-              autocomplete="username"
-              required
-            />
-          </div>
-
-          <div class="field">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              autocomplete="current-password"
-              required
-            />
-          </div>
-
-          <div class="check">
-            <input type="checkbox" id="remember" name="remember" />
-            <label for="remember">Remember me</label>
-          </div>
-
-          <button type="submit" class="primary-btn">
-            Enter the sanctuary
-          </button>
-
-        </form>
-
-        <p class="auth-switch">
-          New apprentice?
-          <a href="register.html">Create an account</a>
-        </p>
-
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <hr />
-      <div class="footer-inner">
-        <p>Quantum Sanctuary · Shania Ziegler</p>
-        <p>
-          <a href="https://github.com/Shania-Ziegler/startup"
-             target="_blank"
-             rel="noopener noreferrer">
-            GitHub
-          </a>
-        </p>
-      </div>
-    </footer>
-
-  </div>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 
 </html>
