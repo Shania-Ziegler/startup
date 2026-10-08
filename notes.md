@@ -273,6 +273,77 @@ Ensure that when the "Run" button is clicked, the state transition (e.g., "Runni
 
 Interesting things I have learned about React
 
+The name React comes from its focus on making reactive web page components that automatically update based on user interactions or changes in the underlying data.
+
+
+The core React library support two functional pieces:
+
+JSX - A syntax that lets you write UI markup in JavaScript, making interactive interfaces easier to build and read.
+State - Data managed by a component that, when changed, causes the relevant HTML to re-render.
+
+
+Vite is a development and build tool used to quickly create and run modern web applications. In this class it is used with React.
+
+Create a React project with:
+
+npm create vite@latest demovite -- --template react
+cd demovite
+npm install
+npm run dev
+
+npm run dev starts the local Vite development server. Vite supports hot module replacement (HMR), so changes to files appear in the browser without manually rebuilding the whole application.
+
+Important generated files:
+
+index.html - starting HTML page containing the root element for React.
+
+src/main.jsx - entry point that connects React to the HTML #root element and loads App.
+
+src/App.jsx - main React component containing JSX and application behavior.
+
+src/index.css and src/App.css - application styling.
+
+package.json - lists dependencies and scripts such as npm run dev and npm run build.
+
+package-lock.json - records exact dependency versions and normally should not be edited manually.
+
+vite.config.js - contains Vite configuration.
+
+Files containing JSX should normally use the .jsx extension instead of .js.
+
+Example React state and event handling:
+
+const [count, setCount] = useState(0)
+
+<button onClick={() => setCount((count) => count + 10)}>
+  Count is {count}
+</button>
+
+useState(0) creates a state value named count that initially equals 0. Calling setCount updates that state and causes React to render the component again.
+
+JSX lets HTML-like syntax be written inside JavaScript:
+
+<h1>Shania</h1>
+
+For production, use:
+
+npm run build
+
+Vite then transpiles, bundles, and minifies the project and places the production-ready files inside the dist directory.
+
+The basic flow of a Vite React application is:
+
+index.html
+    ↓
+src/main.jsx
+    ↓
+App.jsx
+    ↓
+React renders the application into #root
+
+Vite is part of the web development toolchain because it handles development serving, JSX transformation, bundling, and production builds.
+
+
 ## CSS 
 Cascading Style Sheets (CSS) were first proposed in 1994 by Håko Wium Lie at CERN, in order to give HTML documents visual styling independent of the content's structure.
 Before the introduction of CSS, HTML was going to hard code the visual appearance of the content with HTML elements.
