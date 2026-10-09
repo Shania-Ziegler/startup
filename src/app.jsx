@@ -7,10 +7,24 @@ import { Sanctuary } from './map/map';
 import { Chamber } from './chamber/chamber';
 import { Journal } from './journal/journal';
 import { About } from './about/about';
+import { NotFound } from './notfound/notfound';
+
+// Signed out, only the About page is reachable. Once the player is in
+// thegame the full set of views is available.
+const signedOutNav = [{ to: '/about', label: 'About' }];
+
+const signedInNav = [
+  { to: '/journal', label: 'Journal' },
+  { to: '/map', label: 'Sanctuary' },
+  { to: '/chamber', label: 'Chamber' },
+  { to: '/about', label: 'About' },
+  { to: '/', label: 'Logout', end: true },
+];
 
 export default function App() {
   const location = useLocation();
   const isAuthPage = location.pathname === '/' || location.pathname === '/register';
+  const navLinks = isAuthPage ? signedOutNav : signedInNav;
 
   return (
     <>
@@ -36,19 +50,13 @@ export default function App() {
             </div>
 
             <nav aria-label="Main navigation">
-              {isAuthPage ? (
-                <ul className="nav-list">
-                  <li><NavLink to="/about">About</NavLink></li>
-                </ul>
-              ) : (
-                <ul className="nav-list">
-                  <li><NavLink to="/journal">Journal</NavLink></li>
-                  <li><NavLink to="/map">Sanctuary</NavLink></li>
-                  <li><NavLink to="/chamber">Chamber</NavLink></li>
-                  <li><NavLink to="/about">About</NavLink></li>
-                  <li><NavLink to="/" end>Logout</NavLink></li>
-                </ul>
-              )}
+              <ul className="nav-list">
+                {navLinks.map(({ to, label, end }) => (
+                  <li key={label}>
+                    <NavLink to={to} end={end}>{label}</NavLink>
+                  </li>
+                ))}
+              </ul>
             </nav>
           </div>
 
@@ -83,16 +91,5 @@ export default function App() {
 
       </div>
     </>
-  );
-}
-
-function NotFound() {
-  return (
-    <main id="main">
-      <div className="page-heading">
-        <p className="eyebrow">Lost</p>
-        <h2>That chamber does not exist.</h2>
-      </div>
-    </main>
   );
 }
