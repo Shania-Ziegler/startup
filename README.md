@@ -111,10 +111,10 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **Bundled using Vite** - Installed Vite with the React plugin and restructured the project the way Vite expects: `index.html` at the root as a single page shell containing only `<div id="root">`, and all source under `src/`. Added `vite.config.js`, and the sketch images moved to `public/`. Deployed with `deployReact.sh`, which runs `npm run build` and ships the bundled `dist` folder.
+- [x] **Components** - Converted all six HTML pages into React components: `Login`, `Register`, `Sanctuary` (the map), `Chamber`, `Journal`, and `About`, each in its own folder under `src/`. The shared header, navigation, and footer live once in `app.jsx` instead of being repeated on every page. My stylesheet moved to `src/app.css` and is imported in `main.jsx` along with Bootstrap.
+- [x] **Router** - `main.jsx` wraps the app in `BrowserRouter`. `app.jsx` defines the routes: `/` for login, `/register`, `/map`, `/chamber`, `/journal`, `/about`, and a catch-all for unknown paths. Navigation uses `NavLink`, which marks the current view with `aria-current="page"`, so moving between views no longer reloads the page.
 
 ## 🚀 React part 2: Reactivity deliverable
 
