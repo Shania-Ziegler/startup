@@ -3,7 +3,7 @@ import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import { Login } from './login/login';
 import { Register } from './register/register';
-import { Sanctuary } from './map/map';
+import { Sanctuary } from './sanctuary/sanctuary';
 import { Chamber } from './chamber/chamber';
 import { Journal } from './journal/journal';
 import { About } from './about/about';
@@ -21,7 +21,7 @@ const signedInNav = [
   { to: '/', label: 'Logout', end: true },
 ];
 
-export default function App() {
+export function App() {
   const location = useLocation();
   const isAuthPage = location.pathname === '/' || location.pathname === '/register';
   const navLinks = isAuthPage ? signedOutNav : signedInNav;
