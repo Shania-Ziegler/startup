@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { useLookAtPointer } from './useLookAtPointer';
+
 export function Chamber() {
+  const lumiRef = useLookAtPointer();
+
   return (
     <main id="main">
       <div className="layout">
@@ -26,6 +30,7 @@ export function Chamber() {
 
               <div className="lumi-wrap">
                 <div
+                  ref={lumiRef}
                   className="lumi motion-0"
                   role="img"
                   aria-label="Lumi, the trapped ion, in her ground state and almost still"
@@ -146,7 +151,7 @@ export function Chamber() {
             </ul>
           </section>
 
-          {/* WebSocket placeholder: live activity from other apprentices */}
+          {/* WebSocket placeholder: live activity from other players */}
           <aside className="together" aria-labelledby="players-title">
             <h3 id="players-title">Experimenting together</h3>
 
