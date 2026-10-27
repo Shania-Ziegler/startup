@@ -120,9 +120,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **All functionality implemented or mocked out** - All five chambers are playable end to end with no backend (I may change the game mechanics slightly while keeping the react ect all functional). Login, chamber routing, building and editing a sequence, running an experiment, completing levels, and unlocking the next chamber all work. Progress persists in localStorage, which stands in for the database. Login accepts any credentials, and the multiplayer feed is a mocked notifier until the WebSocket deliverable.
+- [x] **Hooks** - `useState` for sequences, table layout, run state, counts, hints, and results. `useEffect` for mount tracking, the activity feed, and level resets. `useRef` for re-entrancy guards and run tickets. `useMemo` for beam intensity on the optical table. A custom `useLookAtPointer` hook, plus login state in `App`.
 
 ## 🚀 Service deliverable
 

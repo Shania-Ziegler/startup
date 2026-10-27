@@ -6,19 +6,18 @@ export function About() {
 
       <article className="about" aria-labelledby="about-title">
 
-        <p className="eyebrow">About the sanctuary</p>
+        <p className="eyebrow">About</p>
 
         <p className="lead">
-          You are an apprentice restoring a sanctuary of quantum spirits.
-          Each chamber represents a different kind of quantum-computing
-          hardware. Instead of moving the spirits directly, you experiment
-          with the controls available to that physical system.
+          Quantum Sanctuary is a puzzle game about how quantum computers are
+          built. Each chamber is a different kind of quantum hardware, and you
+          solve it with that hardware's real controls.
         </p>
 
         <p>
-          In the Quiet Chamber, Lumi is a trapped ion. Laser pulses change
-          internal state and motion. By experimenting with pulse
-          sequences, you gradually discover what those controls mean.
+          In the Quiet Chamber, Lumi is a trapped ion. Laser pulses change her
+          state and motion. Try different pulse sequences to learn what each
+          one does.
         </p>
 
         <section className="hardware" aria-labelledby="hardware-title">
@@ -28,13 +27,13 @@ export function About() {
             <div>
               <dt>Trapped ions</dt>
               <dd className="chamber-name">Quiet Chamber</dd>
-              <dd>Charged atoms suspended by electric fields and steered with lasers.</dd>
+              <dd>Charged atoms held in place by electric fields and controlled with lasers.</dd>
             </div>
 
             <div>
               <dt>Neutral atoms</dt>
               <dd className="chamber-name">Lantern Grove</dd>
-              <dd>Arranged in neat rows by tightly focused beams.</dd>
+              <dd>Atoms held in a row by focused laser beams.</dd>
             </div>
 
             <div>

@@ -1626,3 +1626,293 @@ thead th {
     transform: rotate(90deg);
   }
 }
+
+.level-tabs {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.text-btn.is-current {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.slot.is-playing {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.lumi-wrap.is-solved {
+  filter: brightness(1.2);
+}
+
+.pulse:disabled,
+.run-btn:disabled,
+.text-btn:disabled,
+.primary-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.field-error {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: #c0392b;
+}
+
+/* Lantern Grove: three atoms in a row */
+.atom-row,
+.dot-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 72px;
+}
+
+.atom {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0.4;
+}
+
+.atom.is-excited {
+  opacity: 1;
+  background: currentColor;
+}
+
+.atom.is-targeted {
+  box-shadow: 0 0 0 4px rgba(127, 127, 127, 0.35);
+}
+
+/* Glass Halls: two beam paths */
+.beam-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  min-height: 72px;
+  width: 110px;
+  position: relative;
+}
+
+.beam-line {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.2;
+}
+
+.beam-line.is-lit {
+  opacity: 1;
+}
+
+.beam-phase {
+  position: absolute;
+  inset: 0;
+  border: 2px dashed currentColor;
+  border-radius: 6px;
+  opacity: 0.6;
+}
+
+/* Frozen Spire: a circuit that leans as it drifts */
+.frost {
+  width: 54px;
+  height: 54px;
+  border: 3px solid currentColor;
+  border-radius: 8px;
+  opacity: 0.45;
+  transform: rotate(calc(var(--drift, 0) * 6deg));
+  transition: transform 300ms ease;
+}
+
+.frost.is-excited {
+  opacity: 1;
+  background: currentColor;
+}
+
+/* Lattice: three dots, one electron */
+.dot {
+  width: 34px;
+  height: 34px;
+  border: 2px dashed currentColor;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+.dot.is-noisy {
+  border-style: solid;
+}
+
+.pip {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pip.is-up {
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frost { transition: none; }
+}
+
+/* Optical bench */
+
+.bench-area {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.bench {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 0.75rem;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.bench-source {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.bench-slots {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 320px;
+  padding: 1.25rem 0;
+}
+
+.bench-rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1.1rem;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.bench-rail-lower {
+  top: auto;
+  bottom: 1.1rem;
+}
+
+.bench-slot {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 70px;
+  min-height: 56px;
+  border: 2px dashed currentColor;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.55;
+}
+
+.bench-slot:hover:not(:disabled) {
+  opacity: 1;
+}
+
+.bench-slot.is-splitter,
+.bench-slot.is-mirror,
+.bench-slot.is-phaseUpper,
+.bench-slot.is-phaseLower {
+  border-style: solid;
+  opacity: 1;
+}
+
+.bench-slot.is-splitter { background: rgba(127, 127, 127, 0.18); }
+.bench-slot.is-mirror { background: rgba(127, 127, 127, 0.1); }
+.bench-slot.is-phaseUpper { box-shadow: inset 0 3px 0 currentColor; }
+.bench-slot.is-phaseLower { box-shadow: inset 0 -3px 0 currentColor; }
+
+.bench-slot-label {
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.bench-detectors {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.detector {
+  display: grid;
+  justify-items: center;
+  padding: 0.4rem 0.6rem;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  font-weight: 700;
+  opacity: 0.6;
+  min-width: 60px;
+}
+
+.detector small {
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
+.detector.is-certain {
+  opacity: 1;
+  box-shadow: 0 0 0 3px rgba(127, 127, 127, 0.3);
+}
+
+.pulse.is-held {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.shot-counts {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.shot-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 42px;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+}
+
+.shot-bar {
+  display: block;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(127, 127, 127, 0.2);
+  overflow: hidden;
+}
+
+.shot-bar span {
+  display: block;
+  height: 100%;
+  background: currentColor;
+  transition: width 120ms linear;
+}
+
+.shot-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

@@ -5,11 +5,7 @@ const FULL_REACH = 200;
 
 /**
  * Makes one element's eyes follow the pointer by setting the --look-x and
- * --look-y custom properties that app.css reads.
- *
- * Returns a ref to attach to the element that should watch.
- * 
- * we will update this hook accordingly.
+ * --look-y custom properties that app.css reads. Returns a ref for that element.
  */
 export function useLookAtPointer() {
   const ref = useRef(null);
@@ -42,7 +38,7 @@ export function useLookAtPointer() {
 
     window.addEventListener('pointermove', lookAt, { passive: true });
     document.documentElement.addEventListener('pointerleave', lookAhead);
-//clean up event listeners when the component unmounts
+
     return () => {
       window.removeEventListener('pointermove', lookAt);
       document.documentElement.removeEventListener('pointerleave', lookAhead);

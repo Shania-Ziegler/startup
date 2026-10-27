@@ -1,22 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { CHAMBERS } from '../chamber/chambers';
+import { loadProgress, levelsDone, resetProgress } from '../progress';
+
 export function Sanctuary() {
+  const [progress, setProgress] = React.useState(loadProgress);
+
+  React.useEffect(() => {
+    setProgress(loadProgress());
+  }, []);
+
+  const chambers = CHAMBERS.map((chamber, index) => {
+    const done = levelsDone(progress, chamber.id);
+    const restored = done >= chamber.levels.length;
+    const previous = CHAMBERS[index - 1];
+    const open = index === 0 || levelsDone(progress, previous.id) >= previous.levels.length;
+
+    return { ...chamber, done, restored, open, status: restored ? 'Complete' : open ? 'Open' : 'Locked' };
+  });
+
+  const restoredCount = chambers.filter((c) => c.restored).length;
+  const scores = Object.entries(progress.best);
+  const userName = localStorage.getItem('userName') || 'You';
+
   return (
     <main id="main">
 
       <div className="page-heading">
-        <p className="eyebrow">Your sanctuary</p>
-        <h2>Five chambers have gone quiet.</h2>
-        <p>
-          Restore each quantum spirit to reopen the path through the sanctuary.
-        </p>
+        <h2>
+          {restoredCount === CHAMBERS.length
+            ? 'All chambers complete.'
+            : `${restoredCount} of ${CHAMBERS.length} chambers complete.`}
+        </h2>
+        <p>Each chamber is a different kind of quantum hardware. Finish one to unlock the next.</p>
       </div>
 
       <section className="panel map-panel" aria-labelledby="map-title">
         <div className="map-heading">
-          <h3 id="map-title">Sanctuary map</h3>
-          <p>1 of 5 chambers open</p>
+          <h3 id="map-title">Map</h3>
+          <p>{chambers.filter((c) => c.open).length} of {CHAMBERS.length} chambers open</p>
         </div>
 
         <div className="sanctuary-map">
@@ -27,46 +50,24 @@ export function Sanctuary() {
             <line x1="70%" y1="238" x2="90%" y2="78" />
           </svg>
 
-          <ol className="map-stops" aria-label="Path through the sanctuary">
-            <li className="map-stop">
-              <Link className="map-node is-open" to="/chamber">
-                <span className="map-node-name">Quiet Chamber</span>
-                <span className="map-node-kind">Trapped ion</span>
-                <span className="status status-open">Open</span>
-              </Link>
-            </li>
-
-            <li className="map-stop">
-              <div className="map-node">
-                <span className="map-node-name">Lantern Grove</span>
-                <span className="map-node-kind">Neutral atoms</span>
-                <span className="status">Locked</span>
-              </div>
-            </li>
-
-            <li className="map-stop">
-              <div className="map-node">
-                <span className="map-node-name">Glass Halls</span>
-                <span className="map-node-kind">Photons</span>
-                <span className="status">Locked</span>
-              </div>
-            </li>
-
-            <li className="map-stop">
-              <div className="map-node">
-                <span className="map-node-name">Frozen Spire</span>
-                <span className="map-node-kind">Superconducting</span>
-                <span className="status">Locked</span>
-              </div>
-            </li>
-
-            <li className="map-stop">
-              <div className="map-node">
-                <span className="map-node-name">Lattice</span>
-                <span className="map-node-kind">Silicon qubits</span>
-                <span className="status">Locked</span>
-              </div>
-            </li>
+          <ol className="map-stops" aria-label="Chambers in order">
+            {chambers.map((chamber) => (
+              <li className="map-stop" key={chamber.id}>
+                {chamber.open ? (
+                  <Link className="map-node is-open" to={`/chamber/${chamber.id}`}>
+                    <span className="map-node-name">{chamber.name}</span>
+                    <span className="map-node-kind">{chamber.kind}</span>
+                    <span className="status status-open">{chamber.status}</span>
+                  </Link>
+                ) : (
+                  <div className="map-node">
+                    <span className="map-node-name">{chamber.name}</span>
+                    <span className="map-node-kind">{chamber.kind}</span>
+                    <span className="status">{chamber.status}</span>
+                  </div>
+                )}
+              </li>
+            ))}
           </ol>
         </div>
       </section>
@@ -77,76 +78,75 @@ export function Sanctuary() {
           <h3 id="chambers-title">Chambers</h3>
 
           <ul className="chamber-list">
-
-            <li>
-              <Link to="/chamber">Quiet Chamber</Link>
-              <span className="kind">Trapped ion</span>
-              <span className="status status-open">Open</span>
-            </li>
-
-            <li>
-              <span>Lantern Grove</span>
-              <span className="kind">Neutral atoms</span>
-              <span className="status">Locked</span>
-            </li>
-
-            <li>
-              <span>Glass Halls</span>
-              <span className="kind">Photons</span>
-              <span className="status">Locked</span>
-            </li>
-
-            <li>
-              <span>Frozen Spire</span>
-              <span className="kind">Superconducting circuits</span>
-              <span className="status">Locked</span>
-            </li>
-
-            <li>
-              <span>Lattice</span>
-              <span className="kind">Silicon spin qubits</span>
-              <span className="status">Locked</span>
-            </li>
-
+            {chambers.map((chamber) => (
+              <li key={chamber.id}>
+                {chamber.open ? (
+                  <Link to={`/chamber/${chamber.id}`}>{chamber.name}</Link>
+                ) : (
+                  <span>{chamber.name}</span>
+                )}
+                <span className="kind">{chamber.kind}</span>
+                <span className={`status${chamber.open ? ' status-open' : ''}`}>
+                  {chamber.open ? `${chamber.done} of ${chamber.levels.length}` : 'Locked'}
+                </span>
+              </li>
+            ))}
           </ul>
         </section>
 
-        {/* MongoDB data placeholder */}
         <section aria-labelledby="progress-title">
-          <h3 id="progress-title">Restoration progress</h3>
+          <h3 id="progress-title">Progress</h3>
 
-          <p id="progress-label" className="progress-count">0 of 5 chambers restored</p>
+          <p id="progress-label" className="progress-count">
+            {restoredCount} of {CHAMBERS.length} chambers complete
+          </p>
 
-          <meter id="progress" min="0" max="5" value="0" aria-labelledby="progress-label">
-            0 of 5
+          <meter id="progress" min="0" max={CHAMBERS.length} value={restoredCount} aria-labelledby="progress-label">
+            {restoredCount} of {CHAMBERS.length}
           </meter>
 
           <table>
-            <caption>Fewest pulses</caption>
-
+            <caption>Best scores</caption>
             <thead>
               <tr>
-                <th scope="col">Apprentice</th>
-                <th scope="col">Chamber</th>
-                <th scope="col">Pulses</th>
+                <th scope="col">Player</th>
+                <th scope="col">Level</th>
+                <th scope="col">Steps</th>
               </tr>
             </thead>
-
             <tbody>
-              <tr>
-                <th scope="row">Ana</th>
-                <td>Quiet Chamber</td>
-                <td>3</td>
-              </tr>
-
-              <tr>
-                <th scope="row">Ben</th>
-                <td>Quiet Chamber</td>
-                <td>4</td>
-              </tr>
+              {scores.length === 0 ? (
+                <tr>
+                  <td colSpan="3">Solve a level to set a score.</td>
+                </tr>
+              ) : (
+                scores.map(([scoreKey, used]) => {
+                  const [chamberId, index] = scoreKey.split('-');
+                  const chamber = CHAMBERS.find((c) => c.id === chamberId);
+                  const level = chamber && chamber.levels[Number(index)];
+                  return (
+                    <tr key={scoreKey}>
+                      <th scope="row">{userName}</th>
+                      <td>{level ? level.title : scoreKey}</td>
+                      <td>{used}</td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
 
+          {scores.length > 0 && (
+            <p>
+              <button
+                type="button"
+                className="text-btn"
+                onClick={() => setProgress(resetProgress())}
+              >
+                Reset progress
+              </button>
+            </p>
+          )}
         </section>
       </div>
 

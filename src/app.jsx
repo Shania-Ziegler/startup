@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
+import { AuthState } from './login/authState';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Sanctuary } from './sanctuary/sanctuary';
@@ -9,22 +10,36 @@ import { Journal } from './journal/journal';
 import { About } from './about/about';
 import { NotFound } from './notfound/notfound';
 
-// Signed out, only the About page is reachable. Once the player is in
-// thegame the full set of views is available.
-const signedOutNav = [{ to: '/about', label: 'About' }];
-
-const signedInNav = [
-  { to: '/journal', label: 'Journal' },
-  { to: '/map', label: 'Sanctuary' },
-  { to: '/chamber', label: 'Chamber' },
-  { to: '/about', label: 'About' },
-  { to: '/', label: 'Logout', end: true },
-];
-
 export function App() {
-  const location = useLocation();
-  const isAuthPage = location.pathname === '/' || location.pathname === '/register';
-  const navLinks = isAuthPage ? signedOutNav : signedInNav;
+  const saved = localStorage.getItem('userName') || '';
+
+  const [userName, setUserName] = React.useState(saved);
+  const [authState, setAuthState] = React.useState(
+    saved ? AuthState.Authenticated : AuthState.Unauthenticated
+  );
+
+  const signedIn = authState === AuthState.Authenticated;
+
+  function onAuthChange(name, state) {
+    setUserName(name);
+    setAuthState(state);
+  }
+
+  function logout() {
+    localStorage.removeItem('userName');
+    onAuthChange('', AuthState.Unauthenticated);
+  }
+
+  const links = signedIn
+    ? [
+        { to: '/journal', label: 'Journal' },
+        { to: '/map', label: 'Map' },
+        { to: '/about', label: 'About' },
+      ]
+    : [
+        { to: '/', label: 'Sign in' },
+        { to: '/about', label: 'About' },
+      ];
 
   return (
     <>
@@ -38,24 +53,28 @@ export function App() {
               <div className="brand-mark" aria-hidden="true"></div>
               <div>
                 <h1>Quantum Sanctuary</h1>
-
-                {isAuthPage ? (
-                  <p className="player-line">A puzzle sanctuary for quantum spirits</p>
-                ) : (
+                {signedIn ? (
                   <p className="player-line">
-                    Apprentice <span id="player-name" className="player-name">Guest</span>
+                    Signed in as <span className="player-name">{userName}</span>
                   </p>
+                ) : (
+                  <p className="player-line">Puzzles about quantum hardware</p>
                 )}
               </div>
             </div>
 
             <nav aria-label="Main navigation">
               <ul className="nav-list">
-                {navLinks.map(({ to, label, end }) => (
+                {links.map(({ to, label }) => (
                   <li key={label}>
-                    <NavLink to={to} end={end}>{label}</NavLink>
+                    <NavLink to={to}>{label}</NavLink>
                   </li>
                 ))}
+                {signedIn && (
+                  <li>
+                    <button type="button" className="text-btn" onClick={logout}>Logout</button>
+                  </li>
+                )}
               </ul>
             </nav>
           </div>
@@ -64,11 +83,11 @@ export function App() {
         </header>
 
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/map" element={<Sanctuary />} />
-          <Route path="/chamber" element={<Chamber />} />
-          <Route path="/journal" element={<Journal />} />
+          <Route path="/" element={<Login userName={userName} authState={authState} onAuthChange={onAuthChange} />} />
+          <Route path="/register" element={<Register onAuthChange={onAuthChange} />} />
+          <Route path="/map" element={<Protected signedIn={signedIn}><Sanctuary /></Protected>} />
+          <Route path="/chamber/:chamberId" element={<Protected signedIn={signedIn}><Chamber userName={userName} /></Protected>} />
+          <Route path="/journal" element={<Protected signedIn={signedIn}><Journal /></Protected>} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -78,11 +97,7 @@ export function App() {
           <div className="footer-inner">
             <p>Quantum Sanctuary · Shania Ziegler</p>
             <p>
-              <a
-                href="https://github.com/Shania-Ziegler/startup"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://github.com/Shania-Ziegler/startup" target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
             </p>
@@ -92,4 +107,14 @@ export function App() {
       </div>
     </>
   );
+}
+
+function Protected({ signedIn, children }) {
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!signedIn) navigate('/');
+  }, [signedIn, navigate]);
+
+  return signedIn ? children : null;
 }
