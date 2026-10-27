@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { CHAMBERS } from '../chamber/chambers';
 import { loadProgress, levelsDone, resetProgress } from '../progress';
+import { useUser } from '../user';
 
 export function Sanctuary() {
+  const { userName } = useUser();
   const [progress, setProgress] = React.useState(loadProgress);
 
   React.useEffect(() => {
@@ -22,7 +24,6 @@ export function Sanctuary() {
 
   const restoredCount = chambers.filter((c) => c.restored).length;
   const scores = Object.entries(progress.best);
-  const userName = localStorage.getItem('userName') || 'You';
 
   return (
     <main id="main">
@@ -126,7 +127,7 @@ export function Sanctuary() {
                   const level = chamber && chamber.levels[Number(index)];
                   return (
                     <tr key={scoreKey}>
-                      <th scope="row">{userName}</th>
+                      <th scope="row">{userName || 'You'}</th>
                       <td>{level ? level.title : scoreKey}</td>
                       <td>{used}</td>
                     </tr>

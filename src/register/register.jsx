@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { AuthState } from '../login/authState';
+import { useUser } from '../user';
 
-export function Register({ onAuthChange }) {
+export function Register() {
+  const { login } = useUser();
   const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirm, setConfirm] = React.useState('');
@@ -14,8 +15,7 @@ export function Register({ onAuthChange }) {
   function onSubmit(event) {
     event.preventDefault();
     if (!canSubmit) return;
-    localStorage.setItem('userName', userName.trim());
-    onAuthChange(userName.trim(), AuthState.Authenticated);
+    login(userName.trim());
   }
 
   return (

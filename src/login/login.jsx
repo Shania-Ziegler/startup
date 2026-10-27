@@ -1,28 +1,19 @@
 import React from 'react';
 
-import { AuthState } from './authState';
+import { useUser } from '../user';
 import { Authenticated } from './authenticated';
 import { Unauthenticated } from './unauthenticated';
 
-export function Login({ userName, authState, onAuthChange }) {
+export function Login() {
+  const { userName, signedIn, login, logout } = useUser();
+
   return (
     <main id="main" className="auth-main">
       <section className="panel login-card" aria-labelledby="login-title">
-        {authState === AuthState.Authenticated ? (
-          <Authenticated
-            userName={userName}
-            onLogout={() => {
-              localStorage.removeItem('userName');
-              onAuthChange('', AuthState.Unauthenticated);
-            }}
-          />
+        {signedIn ? (
+          <Authenticated userName={userName} onLogout={logout} />
         ) : (
-          <Unauthenticated
-            onLogin={(name) => {
-              localStorage.setItem('userName', name);
-              onAuthChange(name, AuthState.Authenticated);
-            }}
-          />
+          <Unauthenticated onLogin={login} />
         )}
       </section>
     </main>

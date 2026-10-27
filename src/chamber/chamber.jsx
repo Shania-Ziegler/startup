@@ -9,6 +9,7 @@ import { OpticalBench } from './opticalBench';
 import { delay } from './delay';
 import { CHAMBERS, getChamber, statesMatch, describeMismatch } from './chambers';
 import { loadProgress, levelsDone, recordLevel, recordDiscovery } from '../progress';
+import { useUser } from '../user';
 
 const STYLES = `
 .qs-readout { display: grid; gap: 0.15rem; margin: 0.5rem 0 0; text-align: left; }
@@ -18,7 +19,7 @@ const STYLES = `
 .qs-readout-val { font-weight: 600; }
 `;
 
-export function Chamber({ userName }) {
+export function Chamber() {
   const { chamberId } = useParams();
   const chamber = getChamber(chamberId);
 
@@ -31,7 +32,7 @@ export function Chamber({ userName }) {
     );
   }
 
-  return <ChamberSession key={chamber.id} chamber={chamber} userName={userName} />;
+  return <ChamberSession key={chamber.id} chamber={chamber} />;
 }
 
 function StateReadout({ chamber, state, isTarget }) {
@@ -53,12 +54,13 @@ function StateReadout({ chamber, state, isTarget }) {
   );
 }
 
-function ChamberSession({ chamber, userName }) {
+function ChamberSession({ chamber }) {
+  const { userName } = useUser();
   const navigate = useNavigate();
   const lumiRef = useLookAtPointer();
   const [progress, setProgress] = React.useState(loadProgress);
   const [levelIndex, setLevelIndex] = React.useState(() =>
-    Math.min(levelsDone(loadProgress(), chamber.id), chamber.levels.length - 1)
+    Math.min(levelsDone(progress, chamber.id), chamber.levels.length - 1)
   );
   const level = chamber.levels[levelIndex];
   const [sequence, setSequence] = React.useState([]);
@@ -402,7 +404,7 @@ function ChamberSession({ chamber, userName }) {
             </ul>
           </section>
 
-          <Players userName={userName} />
+          <Players />
         </div>
       </div>
     </main>

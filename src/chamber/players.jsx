@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { ChamberNotifier } from './chamberNotifier';
+import { useUser } from '../user';
 
-export function Players({ userName }) {
+export function Players() {
+  const { userName } = useUser();
   const [events, setEvents] = React.useState([]);
 
   React.useEffect(() => {

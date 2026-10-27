@@ -43,7 +43,7 @@ export function useLookAtPointer() {
       window.removeEventListener('pointermove', lookAt);
       document.documentElement.removeEventListener('pointerleave', lookAhead);
     };
-  }, []);
+  }, [ref]);
 
   return ref;
 }

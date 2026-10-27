@@ -4,7 +4,9 @@ function empty() {
   return { levels: {}, best: {}, discovered: [] };
 }
 
-export function loadProgress() {
+let cache = null;
+
+function read() {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY));
     return saved ? { ...empty(), ...saved } : empty();
@@ -13,7 +15,13 @@ export function loadProgress() {
   }
 }
 
+export function loadProgress() {
+  if (!cache) cache = read();
+  return cache;
+}
+
 function save(progress) {
+  cache = progress;
   try {
     localStorage.setItem(KEY, JSON.stringify(progress));
   } catch {
@@ -28,28 +36,26 @@ export function levelsDone(progress, chamberId) {
 
 export function recordLevel(chamberId, levelIndex, controlsUsed) {
   const progress = loadProgress();
-  const done = levelsDone(progress, chamberId);
+  const levels = { ...progress.levels };
+  const best = { ...progress.best };
 
-  if (levelIndex + 1 > done) {
-    progress.levels[chamberId] = levelIndex + 1;
+  if (levelIndex + 1 > levelsDone(progress, chamberId)) {
+    levels[chamberId] = levelIndex + 1;
   }
 
   const scoreKey = `${chamberId}-${levelIndex}`;
-  const previous = progress.best[scoreKey];
+  const previous = best[scoreKey];
   if (previous === undefined || controlsUsed < previous) {
-    progress.best[scoreKey] = controlsUsed;
+    best[scoreKey] = controlsUsed;
   }
 
-  return save(progress);
+  return save({ ...progress, levels, best });
 }
 
 export function recordDiscovery(controlId) {
   const progress = loadProgress();
-  if (!progress.discovered.includes(controlId)) {
-    progress.discovered.push(controlId);
-    return save(progress);
-  }
-  return progress;
+  if (progress.discovered.includes(controlId)) return progress;
+  return save({ ...progress, discovered: [...progress.discovered, controlId] });
 }
 
 export function resetProgress() {

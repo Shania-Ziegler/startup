@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
-import { AuthState } from './login/authState';
+import { useUser } from './user';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Sanctuary } from './sanctuary/sanctuary';
@@ -11,24 +11,7 @@ import { About } from './about/about';
 import { NotFound } from './notfound/notfound';
 
 export function App() {
-  const saved = localStorage.getItem('userName') || '';
-
-  const [userName, setUserName] = React.useState(saved);
-  const [authState, setAuthState] = React.useState(
-    saved ? AuthState.Authenticated : AuthState.Unauthenticated
-  );
-
-  const signedIn = authState === AuthState.Authenticated;
-
-  function onAuthChange(name, state) {
-    setUserName(name);
-    setAuthState(state);
-  }
-
-  function logout() {
-    localStorage.removeItem('userName');
-    onAuthChange('', AuthState.Unauthenticated);
-  }
+  const { userName, signedIn, logout } = useUser();
 
   const links = signedIn
     ? [
@@ -83,11 +66,11 @@ export function App() {
         </header>
 
         <Routes>
-          <Route path="/" element={<Login userName={userName} authState={authState} onAuthChange={onAuthChange} />} />
-          <Route path="/register" element={<Register onAuthChange={onAuthChange} />} />
-          <Route path="/map" element={<Protected signedIn={signedIn}><Sanctuary /></Protected>} />
-          <Route path="/chamber/:chamberId" element={<Protected signedIn={signedIn}><Chamber userName={userName} /></Protected>} />
-          <Route path="/journal" element={<Protected signedIn={signedIn}><Journal /></Protected>} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/map" element={<Protected><Sanctuary /></Protected>} />
+          <Route path="/chamber/:chamberId" element={<Protected><Chamber /></Protected>} />
+          <Route path="/journal" element={<Protected><Journal /></Protected>} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -109,7 +92,8 @@ export function App() {
   );
 }
 
-function Protected({ signedIn, children }) {
+function Protected({ children }) {
+  const { signedIn } = useUser();
   const navigate = useNavigate();
 
   React.useEffect(() => {
