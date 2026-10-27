@@ -315,6 +315,7 @@ Example React state and event handling:
 
 const [count, setCount] = useState(0)
 
+
 <button onClick={() => setCount((count) => count + 10)}>
   Count is {count}
 </button>
@@ -322,6 +323,42 @@ const [count, setCount] = useState(0)
 useState(0) creates a state value named count that initially equals 0. Calling setCount updates that state and causes React to render the component again.
 
 JSX lets HTML-like syntax be written inside JavaScript:
+
+Reactivity
+
+React rerenders a component when its state or props change. The parent component owns the state and passes it down to children as props. It can also pass the update function down so a child can change the parent's state.
+
+State updates are asynchronous. After calling updateColor('red') the new value is not there on the next line, only on the next render.
+
+For the color picker assignment I added a text input with the same value and onChange as the color input, so both stay in sync.
+
+    <input type='text' onChange={onChange} value={color} />
+
+When the new state depends on the old state use the updater version so you don't get a stale value:
+
+    setCount((prev) => prev + 1);
+
+Destructuring is used a lot in React. Props come in as an object so { initialCount } pulls out just that prop, and useState returns an array so [count, setCount] names both.
+
+Hooks
+Hooks let function components use React features like state and lifecycle. Only call hooks at the top of the component, not inside loops or if statements, so they run in the same order every render.
+
+useState - creates state and an update function.
+
+useEffect - runs after the component renders.
+No dependency array means it runs every render.
+[count] means it runs the first time and whenever count changes.
+[] means it only runs the first time.
+If you return a function it gets called when the component goes away (cleanup), good for closing connections or clearing timers.
+
+    React.useEffect(() => {
+      console.log('connected');
+      return () => console.log('disconnected');
+    }, []);
+
+useContext - shares data like theme, user, or language without passing props through every level. Passing props through components that don't need them is called prop drilling. Steps are createContext, wrap the components in a Provider with a value, then call useContext in the child that needs it. For only one or two levels regular props are simpler.
+
+useMemo - caches the result of an expensive calculation and only reruns it when its dependencies change. With [] it only calculates once. Don't use it for simple stuff and don't put side effects in it, those go in useEffect.
 
 <h1>Shania</h1>
 
@@ -502,6 +539,104 @@ Implementation Example:
 <script src="js/main.min.js"></script>
 
 Note that while minification is great for professional websites, it creates unnecessary hurdles while you are still learning the basics of Adding JavaScript to HTML.
+
+Console
+The console object prints to the debugger console (browser dev tools or VS Code), not your operating system's terminal.
+
+    console.log('hello %s', 'world');                  // hello world
+    console.log('%c Big green', 'font-size:1.5em; color:green;');
+
+%s fills in a string and %c adds CSS styling to the text.
+console.time('label') and console.timeEnd('label') tell you how long the code in between took. Both need the same label.
+console.count('a') counts how many times that line has run.
+
+console.log is quick for checking a value, but for complex logic a debugger with breakpoints is better because you can pause, step through the code, and look at the call stack without changing your code.
+
+Functions
+Functions are first class objects, meaning they can be stored in a variable, passed as a parameter, or returned from another function.
+There are no types on parameters. If a parameter isn't passed it is undefined. You can give a default value with =.
+
+    function labeler(value, title = 'title') {
+      console.log(`${title}=${value}`);
+    }
+
+A function without a return is usually there for a side effect like logging or changing an object.
+Anonymous function is a function with no name, usually assigned to a variable or passed into another function.
+Inner function is a function declared inside another one, which keeps helper code private.
+
+Arrow functions
+A shorter way to write a function: (a, b) => a + b
+With no curly braces the value is returned automatically. With curly braces you need return.
+To return an object wrap it in parentheses: () => ({ id: 1 })
+Arrow functions don't have their own this, they use the this from where they were written. This makes them good for callbacks but bad for object methods and constructors.
+
+A closure is a function plus the variables that were around when it was created, so it remembers them later.
+
+    function makeClosure(init) {
+      let value = init;
+      return () => ++value;
+    }
+
+Debounce only runs a function after events stop for a set amount of time. It uses a closure to keep track of the timeout and resets it every time an event happens. When I counted them, scroll events happened way more than debounce events.
+
+Arrays
+Arrays can grow and shrink and hold mixed types. The index starts at 0 and a.length gives the size.
+push and pop add and remove at the end and are fast. shift and unshift work at the start and are slow because everything has to be re-indexed.
+map makes a new array, filter keeps items that pass a test, reduce combines everything into one value, find gets the first match, every checks if all items pass, and some checks if any pass. sort changes the original array.
+Assigning an array to a new variable copies the reference, not the data.
+
+testAll assignment:
+
+    function testAll(input, tester) {
+      return input.every(tester);
+    }
+    console.log(testAll(['apple', 'banana', 'kiwi'], (s) => s.length > 3)); // true
+
+Objects and classes
+Objects are name value pairs called properties. Use obj.a or obj['a'], and you can add properties anytime.
+Object.keys, Object.values, and Object.entries return arrays of the keys, values, and key value pairs.
+Inside an object's method, this refers to the object.
+Classes have a constructor that runs when you use new. Putting # in front of a property makes it private. extends is for inheritance and super calls the parent. A child method with the same name as the parent's overrides it.
+Adding a property to one object only changes that object, not the whole class.
+
+Destructuring
+Pulls values out of an array or object into variables.
+
+    const [b, c, ...others] = [1, 2, 4, 5];  // b=1, c=2, others=[4,5]
+    const { a, c } = obj;                     // by property name
+    const { a: count } = obj;                 // rename
+    const { b = 22 } = {};                    // default value
+
+Useful for React props and state, pulling a few fields out of API data, and returning more than one value from a function.
+
+setTimeout and setInterval
+setTimeout runs a function once after a delay in milliseconds. setInterval runs it over and over.
+Code keeps running after you call them, they don't pause anything.
+Stop them with clearTimeout or clearInterval using the ID they return.
+
+    const interval = setInterval(() => console.log('tick'), 1000);
+    setTimeout(() => clearInterval(interval), 5000);
+
+The delay is a minimum, the callback waits until the current code finishes.
+
+JSON
+JavaScript Object Notation, created by Douglas Crockford, is a format for storing and sending data. It is always UTF-8.
+Types are string, number, boolean, array, object, and null.
+Keys and strings need double quotes. No comments, no trailing commas, no functions or undefined.
+JSON.stringify turns an object into a JSON string and JSON.parse turns it back. undefined and functions get dropped.
+Dates are stored as ISO strings like "2023-10-27T10:30:00Z".
+
+localStorage
+Saves data in the browser that stays even after the page or browser is closed. Also good as a cache if the server is down.
+setItem, getItem, removeItem, and clear.
+Everything is stored as a string, so use JSON.stringify and JSON.parse for objects and arrays.
+
+    localStorage.setItem('user', JSON.stringify(user));
+    const user = JSON.parse(localStorage.getItem('user'));
+
+You can see it in dev tools under Application > Local Storage.
+About a 5MB limit. Never store passwords or tokens there because any script on the site can read it.
+sessionStorage works the same way but clears when the tab closes.
 
 ## Node.js
 In 2009 Ryan Dahl created Node.js as the first successful application for deploying JavaScript outside of a browser.
