@@ -709,6 +709,17 @@ Testing - Automated tests at multiple levels to ensure correctness.
 Deployment - Automated packaging and delivery of code from the development environment to the production environment.
 
 
+## HTML Service
+
+A web server is a computing device hosting a web service that knows how to accept incoming internet connections and speak the HTTP application portal
+
+Every web server allows for access to multiple services by referring to a different port number for each service
+A service gateway, or sometimes called a reverse proxy us a simple web service that listens on common HTTPS port 443.
+
+Serverless functionality is where the server is conceptually removed from the architecture and you just write code that represents single service endpoint. 
+
+That endpoint is loaded through an gateway that maps a web request to the endpoint. The gateway automatically scales the hardware needed to host the serverless endpoint based on demand. This reduces what the web application developer needs to think about down to a single independent endpoint.
+
 ## Technology Stack 
 
 The collection of technologies that you use to create or deliver your web application is called a technology stack.
