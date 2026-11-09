@@ -719,7 +719,86 @@ A service gateway, or sometimes called a reverse proxy us a simple web service t
 Serverless functionality is where the server is conceptually removed from the architecture and you just write code that represents single service endpoint. 
 
 That endpoint is loaded through an gateway that maps a web request to the endpoint. The gateway automatically scales the hardware needed to host the serverless endpoint based on demand. This reduces what the web application developer needs to think about down to a single independent endpoint.
+ 
+A web server receives an HTTP request and sends back a response: a file, generated data, or a status code like 404.
 
+To make a web service request, we supply the URL of the web service to the fetch function that is built into the browser.
+
+Our web service will provide the static frontend files along with functions to handle fetch requests for things like storing data persistently, providing security, running tasks, executing application logic that you don't want your user to be able to see, and communicating with other users. The functionality provided by your web service represents the backend of your application.
+
+Functions provided by a web service are generally called endpoints or apis 
+
+The Uniform Resource Locator (URL) represents the location of a web resource. 
+
+The first line of the HTTP request contains the verb of the request, followed by the path, parameters, and anchor of the URL and then version of HTTP being used
+
+Most common http verbs
+
+GET	Get the requested resource. This can represent a request to get a single resource or a resource representing a list of resources.
+POST	Create a new resource. The body of the request contains the resource. The response should include a unique ID of the newly created resource.
+PUT	Update a resource. Either the URL path, HTTP header, or body must contain the unique ID of the resource being updated. The body of the request should contain the updated resource. The body of the response may contain the resulting updated resource.
+DELETE	Delete a resource. Either the URL path or HTTP header must contain the unique ID of the resource to delete.
+OPTIONS	Get metadata about a resource. Usually only HTTP headers are returned. The resource itself is not returned.
+
+
+HTTP standard status codes
+
+1xx - Informational.
+2xx - Success.
+3xx - Redirect to some other location, or that the previously cached resource is still valid.
+4xx - Client errors. The request is invalid.
+5xx - Server errors. The request cannot be satisfied due to an error on the server.
+
+The format of the body of an HTTP request or response is defined by the Content-Type header.
+
+HTTP itself is stateless meaning one HTTP request doesn't know anything about a previous or future request
+
+Use 401 when the user isn't authenticated, and 403 when they're authenticated but not authorized.
+
+Using public APIs allows developers to create mashups of applications that combine data from multiple sources to provide a unique and valuable user experience.
+
+A web service is usually divided up into multiple service endpoints. Each endpoint provides a single functional purpose
+
+Service end points are often called an Application Programming Interface API
+
+GraphQL allows the client to define the specific shape of the response to prevent over-fetching, whereas REST typically returns fixed data structures from resource-specific endpoints
+
+RPC is action-oriented, exposing server functions as individual endpoints (usually via POST) which tightly couples the client to the server's internal code. REST is resource-oriented, using unique, human-readable URLs and standard HTTP verbs (GET, POST, PUT, DELETE) to manage objects, making it highly compatible with native web caching infrastructure. GraphQL is data-oriented and uses a single endpoint where the client submits a custom query to fetch precisely the fields it needs in a single request, preventing over-fetching but shifting the processing burden and resource consumption to the server.
+
+## 502 errors (deployment)
+
+A 502 means Caddy got my request but the Node service behind it did not answer.
+It is a backend problem, not an HTML/CSS one.
+
+Caddy proxies each subdomain to a port on localhost. Simon is 3000, my startup is 4000.
+If index.js listens on the wrong port, Caddy has nothing to talk to.
+
+Debug order, after `ssh -i ~/keys/cs260.pem ubuntu@quantumsanctuary.click`:
+
+1. `cd ~/services/startup` then `ls` to check the files actually arrived
+2. `node index.js` and read the error directly
+3. `pm2 describe startup` to see the script path, port args, and status
+4. `pm2 logs startup` for the crash output
+
+Causes I should check first:
+- backend dependency installed into the root package.json instead of service/package.json,
+  so node_modules on the server is missing express or cookie-parser
+- file not named exactly `index.js` (lowercase)
+- missing service/package.json entirely
+
+The project has two separate applications with two package.json files: frontend at the
+root, backend in service/. They install independently.
+
+Fixing something by hand on the server only lasts until the next deploy. 
+
+In the context of web security, what is Cross-Origin Resource Sharing (CORS)?
+
+
+A mechanism that uses HTTP headers to allow a server to indicate any origins other than its own from which a browser should permit loading resources.
+
+Authentication verifies who a user is, while authorization determines what that authenticated user is allowed to do or access.
+
+An authentication token is a piece of data stored on the user's device (often inside a cookie) that proves the user has already successfully logged in, allowing the web service to identify them on subsequent requests without forcing them to re-enter their credentials every time.
 ## Technology Stack 
 
 The collection of technologies that you use to create or deliver your web application is called a technology stack.
