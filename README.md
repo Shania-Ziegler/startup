@@ -128,14 +128,18 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
-- [ ] **Uses BCrypt to hash passwords** - I did not complete this part of the deliverable.
+## 🚀 Service deliverable
+
+For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **Node.js/Express HTTP service** Created `service/index.js` as a separate backend application with its own `package.json`, listening on port 4000. Uses `express.json()` and `cookie-parser` middleware, an `express.Router()` mounted at `/api`, an error handler, and a default handler that returns `index.html` so React routing works on refresh.
+- [x] **Static middleware for frontend** `app.use(express.static('public'))` serves the bundled React frontend from the service's `public` directory in production.
+- [x] **Calls to third party endpoints** `src/chamber/quantumRandom.js` fetches random numbers from qrandom.io, with ANU's quantum RNG and csrng.net as backups and `Math.random` as a final fallback. The glass hall section uses these values to decide which detector each photon lands in, so measurement outcomes come from randomness rather than a pseudo-random sequence. The optical bench displays which source is in use.
+- [x] **Backend service endpoints** `GET/PUT/DELETE /api/progress` for a player's chamber progress, `GET/POST /api/activity` for the player feed, and `GET /api/leaderboard` for top players. The PUT merges rather than overwrites so a stale client cannot roll back progress, and all incoming data is validated server side.
+- [x] **Frontend calls service endpoints** `src/progress.js` loads progress on sign in and saves it on a debounced PUT whenever a level is solved or a control discovered, falling back to localStorage when offline. `src/user.jsx` calls the auth endpoints and restores the session on page load.
+- [x] **Supports registration, login, logout, and restricted endpoint** `POST /api/auth/create`, `POST /api/auth/login`, `DELETE /api/auth/logout`, and `GET /api/auth/me`. Auth tokens are UUIDs stored in an HTTP cookie set with `httpOnly`, `secure`, and `sameSite: strict`. A `verifyAuth` middleware guards every endpoint except create and login, returning 401 without a valid token.
+- [x] **Uses BCrypt to hash passwords** Passwords are hashed with `bcrypt.hash(password, 10)` on registration and theyre checked with `bcrypt.compare`. The plaintext password is never stored/logged.
 
 ## 🚀 DB deliverable
 
