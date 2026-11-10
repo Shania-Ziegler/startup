@@ -100,6 +100,13 @@ function Protected({ children }) {
     if (ready && !signedIn) navigate('/');
   }, [ready, signedIn, navigate]);
 
-  if (!ready) return <main id="main"><p>Checking your apprentice record.</p></main>;
+  if (!ready) {
+    return (
+      <main id="main">
+        <p>Checking your apprentice record.</p>
+      </main>
+    );
+  }
+
   return signedIn ? children : null;
 }
