@@ -91,7 +91,7 @@ export function Login() {
           font-size: 0.9rem;
         }
         .qs-login-foot a {
-          color: var(--cyan);
+          color: var(--text);
           font-weight: 600;
           text-decoration: none;
         }
