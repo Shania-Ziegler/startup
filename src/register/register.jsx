@@ -54,7 +54,7 @@ export function Register() {
         }
         .qs-login input:focus {
           outline: none;
-          border-color: var(--cyan);
+          border-color: var(--text);
           background: var(--bg);
         }
         .qs-login input:-webkit-autofill,
@@ -76,7 +76,7 @@ export function Register() {
           margin-top: 0.5rem;
           border: 0;
           border-radius: var(--radius);
-          background: var(--cyan);
+          background: var(--text);
           color: var(--text-on-light);
           font-weight: 600;
           cursor: pointer;
@@ -99,7 +99,7 @@ export function Register() {
           font-size: 0.9rem;
         }
         .qs-login-foot a {
-          color: var(--cyan);
+          color: var(--text);
           font-weight: 600;
           text-decoration: none;
         }

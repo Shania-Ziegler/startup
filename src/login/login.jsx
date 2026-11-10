@@ -52,7 +52,7 @@ export function Login() {
         }
         .qs-login input:focus {
           outline: none;
-          border-color: var(--cyan);
+          border-color: var(--text);
           background: var(--bg);
         }
         .qs-login input:-webkit-autofill,
@@ -68,7 +68,7 @@ export function Login() {
           margin-top: 0.5rem;
           border: 0;
           border-radius: var(--radius);
-          background: var(--cyan);
+          background: var(--text);
           color: var(--text-on-light);
           font-weight: 600;
           cursor: pointer;
