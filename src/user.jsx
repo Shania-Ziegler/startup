@@ -82,7 +82,8 @@ export async function logout() {
   try {
     await flushProgress();
     await fetch('/api/auth/logout', { method: 'DELETE' });
-  } catch {
+  } catch (error) {
+    console.error('Logout request failed:', error);
   }
   signedOut();
 }

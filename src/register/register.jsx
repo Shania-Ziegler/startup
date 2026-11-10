@@ -30,7 +30,7 @@ export function Register() {
     }
   }
 
-  const valid = name.trim().length >= 2 && password.length >= 4 && confirm.length >= 4;
+  const valid = name.trim() !== '' && password !== '' && confirm !== '';
   const mismatch = confirm.length > 0 && password !== confirm;
 
   return (
@@ -185,12 +185,9 @@ export function Register() {
               placeholder="Choose a name"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              aria-describedby="new-username-note"
               autoFocus
               required
-              minLength={2}
             />
-            <p id="new-username-note" className="qs-field-note">At least 2 characters.</p>
           </div>
           <div className="field">
             <label htmlFor="new-password">Password</label>
@@ -201,11 +198,8 @@ export function Register() {
               placeholder="••••••••"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              aria-describedby="new-password-note"
               required
-              minLength={4}
             />
-            <p id="new-password-note" className="qs-field-note">At least 4 characters.</p>
           </div>
           <div className="field">
             <label htmlFor="confirm-password">Confirm password</label>
@@ -219,7 +213,6 @@ export function Register() {
               aria-invalid={mismatch}
               aria-describedby={mismatch ? 'confirm-password-note' : undefined}
               required
-              minLength={4}
             />
             {mismatch && (
               <p id="confirm-password-note" className="qs-field-note is-bad">

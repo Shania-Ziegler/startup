@@ -29,7 +29,7 @@ export function Login() {
     }
   }
 
-  const valid = name.trim().length >= 2 && password.length >= 4;
+  const valid = name.trim() !== '' && password !== '';
 
   return (
     <main id="main" className="auth-main">

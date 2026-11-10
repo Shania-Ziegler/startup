@@ -5,6 +5,7 @@ const uuid = require('uuid');
 
 const app = express();
 const authCookieName = 'token';
+const authCookieOptions = { secure: true, httpOnly: true, sameSite: 'strict' };
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 const users = [];
@@ -36,11 +37,7 @@ async function createUser(username, password) {
 }
 
 function setAuthCookie(res, token) {
-  res.cookie(authCookieName, token, {
-    secure: true,
-    httpOnly: true,
-    sameSite: 'strict',
-  });
+  res.cookie(authCookieName, token, authCookieOptions);
 }
 
 function verifyAuth(req, res, next) {
@@ -129,7 +126,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 apiRouter.delete('/auth/logout', (req, res) => {
   const user = findUser('token', req.cookies[authCookieName]);
   if (user) delete user.token;
-  res.clearCookie(authCookieName);
+  res.clearCookie(authCookieName, authCookieOptions);
   res.status(204).end();
 });
 
