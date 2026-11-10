@@ -5,10 +5,19 @@ export function Unauthenticated({ onLogin }) {
   const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [remember, setRemember] = React.useState(false);
+  const [error, setError] = React.useState('');
+  const [busy, setBusy] = React.useState(false);
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
-    onLogin(userName.trim());
+    setError('');
+    setBusy(true);
+    try {
+      await onLogin(userName.trim(), password);
+    } catch (err) {
+      setError(err.message);
+      setBusy(false);
+    }
   }
 
   return (
@@ -57,7 +66,11 @@ export function Unauthenticated({ onLogin }) {
           <label htmlFor="remember">Remember me</label>
         </div>
 
-        <button type="submit" className="primary-btn" disabled={!userName.trim()}>
+        {error && (
+          <p className="field-error" role="alert">{error}</p>
+        )}
+
+        <button type="submit" className="primary-btn" disabled={busy || !userName.trim() || !password}>
           Sign in
         </button>
       </form>
