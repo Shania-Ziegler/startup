@@ -120,7 +120,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     res.send({ username: user.username });
     return;
   }
-  res.status(401).send({ msg: 'Wrong apprentice name or password' });
+  res.status(401).send({ msg: 'Wrong username or password' });
 });
 
 apiRouter.delete('/auth/logout', (req, res) => {
