@@ -142,7 +142,7 @@ apiRouter.get('/progress', verifyAuth, (req, res) => {
   res.send(progress);
 });
 
-apiRouter.put('/progress', verifyAuth, (req, res) => {
+function saveProgress(req, res) {
   const incoming = normalizeProgress(req.body);
   const existing = progressByUser[req.user.username] || emptyProgress();
 
@@ -159,7 +159,10 @@ apiRouter.put('/progress', verifyAuth, (req, res) => {
 
   progressByUser[req.user.username] = merged;
   res.send(merged);
-});
+}
+
+apiRouter.put('/progress', verifyAuth, saveProgress);
+apiRouter.post('/progress', verifyAuth, saveProgress);
 
 apiRouter.delete('/progress', verifyAuth, (req, res) => {
   progressByUser[req.user.username] = emptyProgress();
@@ -194,7 +197,7 @@ apiRouter.get('/leaderboard', verifyAuth, (req, res) => {
 
 app.use((err, _req, res, _next) => {
   console.error(err);
-  res.status(500).send({ type: err.name, msg: err.message });
+  res.status(500).send({ msg: 'Internal Server Error' });
 });
 
 app.use((_req, res) => {

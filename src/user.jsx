@@ -43,7 +43,8 @@ function restoreSession() {
         publish({ userName: body.username, signedIn: true, ready: true });
         return;
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to restore session:', error);
     }
     signedOut();
   })();

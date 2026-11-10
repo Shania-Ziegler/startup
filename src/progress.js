@@ -99,6 +99,17 @@ export async function flushProgress() {
   }
 }
 
+window.addEventListener('pagehide', () => {
+  if (!pending || !session || !cache) return;
+  clearTimeout(timer);
+  const body = new Blob([JSON.stringify(cache)], { type: 'application/json' });
+  if (navigator.sendBeacon && navigator.sendBeacon('/api/progress', body)) {
+    pending = false;
+    return;
+  }
+  flushProgress();
+});
+
 export function clearProgressSession() {
   clearTimeout(timer);
   pending = false;
