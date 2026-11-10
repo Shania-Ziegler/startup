@@ -93,12 +93,13 @@ export function App() {
 }
 
 function Protected({ children }) {
-  const { signedIn } = useUser();
+  const { signedIn, ready } = useUser();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!signedIn) navigate('/');
-  }, [signedIn, navigate]);
+    if (ready && !signedIn) navigate('/');
+  }, [ready, signedIn, navigate]);
 
+  if (!ready) return <main id="main"><p>Checking your apprentice record.</p></main>;
   return signedIn ? children : null;
 }
