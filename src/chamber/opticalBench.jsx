@@ -1,5 +1,6 @@
 import React from 'react';
-import { PARTS, emptyBench, simulate, fireShot } from './optics';
+import { PARTS, emptyBench, simulate } from './optics';
+import { nextRandom, primeQuantumPool, randomSourceLabel } from './quantumRandom';
 import { delay } from './delay';
 
 const SHOT_BATCH = 20;
@@ -110,6 +111,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
   const [over, setOver] = React.useState(null);
   const [flash, setFlash] = React.useState(null);
   const [verdict, setVerdict] = React.useState('Drag a part onto the table, or click a part and then a slot.');
+  const [source, setSource] = React.useState('local fallback');
   const mounted = React.useRef(false);
   const firingNow = React.useRef(false);
   const runId = React.useRef(0);
@@ -127,6 +129,9 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
 
   React.useEffect(() => {
     mounted.current = true;
+    primeQuantumPool().then(() => {
+      if (mounted.current) setSource(randomSourceLabel());
+    });
     return () => {
       mounted.current = false;
       runId.current += 1;
@@ -137,7 +142,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
     runId.current += 1;
     setCounts({ A: 0, B: 0 });
     setFlash(null);
-    setVerdict('New goal. Set up the table, then fire.');
+    setVerdict('Experiment ready. Adjust the table or fire photons to try this goal.');
   }, [level]);
 
   function edited(message) {
@@ -162,11 +167,11 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
     if (Number.isInteger(from)) {
       next[from] = bench[index];
       next[index] = partId;
-      commit(next, `Moved ${PARTS[partId].name} to slot ${index + 1}.`);
+      commit(next, `Moved the ${PARTS[partId].name} to slot ${index + 1}. Fire photons to test it.`);
       return;
     }
     next[index] = partId;
-    commit(next, `Placed ${PARTS[partId].name} in slot ${index + 1}.`);
+    commit(next, `Placed the ${PARTS[partId].name} in slot ${index + 1}. Fire photons to test it.`);
     discover(partId);
   }
 
@@ -175,7 +180,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
     if (!partId) return;
     const next = [...bench];
     next[index] = null;
-    commit(next, `Removed ${PARTS[partId].name} from slot ${index + 1}.`);
+    commit(next, `Removed the ${PARTS[partId].name} from slot ${index + 1}.`);
   }
 
   function slotClick(index) {
@@ -226,7 +231,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
     const missing = required.find(([id, count]) => bench.filter((part) => part === id).length < count);
     if (missing) {
       const [id, count] = missing;
-      setVerdict(`This level needs ${count} × ${PARTS[id]?.name || id}.`);
+      setVerdict(`This experiment needs at least ${count} ${PARTS[id]?.name || id}. Place them on the table, then fire.`);
       return;
     }
 
@@ -242,9 +247,12 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
       setVerdict('Firing photons.');
       let tally = { A: 0, B: 0 };
       setCounts(tally);
+      await primeQuantumPool();
+      if (!active()) return;
+      setSource(randomSourceLabel());
       for (let i = 0; i < SHOT_BATCH; i++) {
         if (!active()) return;
-        const hit = fireShot(physics.detectorA);
+        const hit = nextRandom() < physics.detectorA ? 'A' : 'B';
         tally = { ...tally, [hit]: tally[hit] + 1 };
         setCounts(tally);
         setFlash(hit);
@@ -256,13 +264,13 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
       const shareA = tally.A / shots;
       if (level.check(shareA, physics, bench)) {
         onSolved(partsUsed);
-        setVerdict(`Solved with ${partsUsed} parts. ${tally.A} hit A, ${tally.B} hit B.`);
+        setVerdict(`Goal reached with ${partsUsed} parts. Sample: ${tally.A} at A, ${tally.B} at B.`);
       } else {
         setVerdict(level.miss(shareA));
       }
     } catch (error) {
-      console.error('Firing failed:', error);
-      if (mounted.current) setVerdict('Something went wrong. Try firing again.');
+      console.error('Optical experiment failed:', error);
+      if (mounted.current) setVerdict('Experiment could not finish. Adjust the setup or fire again.');
     } finally {
       firingNow.current = false;
       if (mounted.current) {
@@ -279,11 +287,11 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
 
       <p className="section-label">Optical table</p>
       <p>
-        Drag parts onto the slots. Drag a placed part to move it, or back to the tray to remove it.
-        You can also click a part, then a slot.
+        Drag a part from the tray onto a slot. Drag a placed part to another slot to move it, or back
+        to the tray to remove it. Clicking also works: select a part, then click a slot.
       </p>
       {required.length > 0 && (
-        <p>Needs: {required.map(([id, count]) => `${count} × ${PARTS[id]?.name || id}`).join(', ')}.</p>
+        <p>Required setup: {required.map(([id, count]) => `${count} × ${PARTS[id]?.name || id}`).join(', ')}.</p>
       )}
 
       <div className="qs-stage" role="group" aria-label="Optical table">
@@ -347,7 +355,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
         </div>
       </div>
 
-      <p>Percentages are the odds for each detector. Counts below are actual hits.</p>
+      <p>Percentages are the predicted probabilities. Counts below are sampled photon detections.</p>
 
       <p className="section-label">Parts tray</p>
       <div
@@ -388,7 +396,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
         </button>
       </div>
 
-      <div className="shot-counts" aria-label="Photon hits">
+      <div className="shot-counts" aria-label="Sampled photon counts">
         {['A', 'B'].map((id) => (
           <div className="shot-row" key={id}>
             <span className="shot-label">Detector {id}</span>
@@ -403,6 +411,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
       <dl className="readout">
         <div><dt>Result</dt><dd><output aria-live="polite">{verdict}</output></dd></div>
         <div><dt>Parts used</dt><dd>{partsUsed}{bestParts !== undefined ? ` · best ${bestParts} parts` : ''}</dd></div>
+        <div><dt>Measurement source</dt><dd>{source}</dd></div>
       </dl>
     </div>
   );
