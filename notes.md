@@ -799,6 +799,73 @@ A mechanism that uses HTTP headers to allow a server to indicate any origins oth
 Authentication verifies who a user is, while authorization determines what that authenticated user is allowed to do or access.
 
 An authentication token is a piece of data stored on the user's device (often inside a cookie) that proves the user has already successfully logged in, allowing the web service to identify them on subsequent requests without forcing them to re-enter their credentials every time.
+
+
+Automated integration processes, called continuous integration (CI) processes, checkout the application code, lint it, build it, test it, stage it, test it more, and then finally, if everything checks out, deploy the application to the production environment, and notify the different departments in the company of the release.
+
+The -k parameter provides the credential file necessary to access your production environment. The -h parameter is the domain name of your production environment. The -s parameter represents the name of the application you are deploying (either simon or startup).
+
+1. ssh "-i" $key ubuntu@$hostname << ENDSSH
+	• ssh: Initiates a secure remote connection.
+	• "-i" $key: Specifies the identity file (private SSH key) stored in the $key variable for authentication.
+	• ubuntu@$hostname: Logs in as the ubuntu user on the server address stored in $hostname.
+	• << ENDSSH: Starts a "here document" (heredoc). Everything between this line and the closing ENDSSH is passed directly into the remote server's terminal as standard input, rather than executing on your local machine.
+2. cd services/${service}
+	• Changes the working directory on the remote server into the specific folder for the service named in the ${service} variable. (Note: Because ENDSSH is unquoted, ${service} is evaluated using the variable from your local environment before being sent to the server).
+3. npm install
+	• Reads the package.json file inside that directory and installs or updates any required Node.js dependencies.
+4. pm2 restart ${service}
+	• Uses PM2 (a Node.js process manager) to stop and restart the running application matching the ${service} name so your updated code and dependencies go live.
+5. ENDSSH
+	• Marks the end of the heredoc block, signaling to the remote server that there are no more commands to run and closing the SSH session.
+
+
+## Storage services
+
+Do not store uploaded files on my own server. The disk is only 8 GB, the server is
+replaceable at any time so anything saved on it is lost, it is not backed up, and with
+more than one server the upload and the download can land on different machines.
+Use a storage service instead (S3, Google Cloud Storage). Never commit credentials.
+
+## Uploading files
+
+Frontend: `<input type="file">`, wrap the file in `FormData`, POST it.
+Backend: the `multer` package reads it off the request.
+
+Two things multer is doing that matter: `limits: { fileSize: 64000 }` caps the upload,
+and the `filename` callback generates my own name instead of trusting the one the user
+sent. Trusting the uploaded name lets someone write wherever they want on the server.
+
+## Data services (MongoDB)
+
+Mongo stores JSON documents in collections, no fixed schema, so fields can be added
+without a migration. Atlas has a free shared cluster, no card needed.
+
+Credentials go in `dbConfig.json` and that file goes in `.gitignore`. It is never
+committed, so it has to be copied to the production server separately. A missing
+dbConfig.json on the server is a common cause of a 502 on the Login/DB deliverable.
+
+Set Atlas network access to allow connections from anywhere, or the AWS server cannot
+reach it.
+
+```js
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const client = new MongoClient(url);
+const collection = client.db('sanctuary').collection('users');
+
+await collection.insertOne(doc);
+await collection.find(query).toArray();
+await collection.updateMany(query, { $set: { field: value } });
+await collection.deleteMany(query);
+```
+
+Ping the database on startup so a bad connection string fails immediately instead of
+on the first request:
+
+```js
+await db.command({ ping: 1 });
+```
+
 ## Technology Stack 
 
 The collection of technologies that you use to create or deliver your web application is called a technology stack.
