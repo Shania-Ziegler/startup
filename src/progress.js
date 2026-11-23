@@ -8,6 +8,7 @@ let cache = null;
 let session = null;
 let pending = false;
 let timer = null;
+let generation = 0;
 
 function storageKey() {
   return session ? `${KEY}.${session}` : KEY;
@@ -64,6 +65,7 @@ function schedulePush() {
 }
 
 export async function hydrateProgress(userName) {
+  const gen = ++generation;
   session = userName;
   clearTimeout(timer);
   pending = false;
@@ -73,10 +75,12 @@ export async function hydrateProgress(userName) {
     const response = await fetch('/api/progress');
     if (response.ok) {
       const remote = await response.json();
+      if (gen !== generation) return cache;
       cache = merge(cache, remote);
       writeLocal(cache);
     }
-  } catch {
+  } catch (error) {
+    console.error('Progress sync failed:', error);
   }
 
   return cache;
@@ -94,7 +98,8 @@ export async function flushProgress() {
       body: JSON.stringify(cache),
     });
     if (!response.ok) pending = true;
-  } catch {
+  } catch (error) {
+    console.error('Progress sync failed:', error);
     pending = true;
   }
 }
@@ -111,6 +116,7 @@ window.addEventListener('pagehide', () => {
 });
 
 export function clearProgressSession() {
+  generation += 1;
   clearTimeout(timer);
   pending = false;
   session = null;
@@ -145,6 +151,18 @@ export function recordDiscovery(controlId) {
   return save({ ...progress, discovered: [...progress.discovered, controlId] });
 }
 
-export function resetProgress() {
-  return save(empty());
+export async function resetProgress() {
+  clearTimeout(timer);
+  pending = false;
+  cache = empty();
+  writeLocal(cache);
+  const cleared = cache;
+  if (session) {
+    try {
+      await fetch('/api/progress', { method: 'DELETE' });
+    } catch (error) {
+      console.error('Progress reset failed:', error);
+    }
+  }
+  return cleared;
 }
