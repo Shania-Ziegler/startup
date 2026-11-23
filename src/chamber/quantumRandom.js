@@ -40,10 +40,13 @@ const SOURCES = [
   },
 ];
 
+const REQUEST_TIMEOUT_MS = 4000;
+
 let pool = [];
 let sourceName = null;
 let lastFailureAt = 0;
 let inFlight = null;
+let priming = false;
 
 function normalize(values, scale) {
   return values
@@ -52,8 +55,15 @@ function normalize(values, scale) {
     .map((value) => value / scale);
 }
 
+function timeoutSignal(ms) {
+  if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) return AbortSignal.timeout(ms);
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), ms);
+  return controller.signal;
+}
+
 async function fetchFrom(source, count) {
-  const response = await fetch(source.url(count));
+  const response = await fetch(source.url(count), { signal: timeoutSignal(REQUEST_TIMEOUT_MS) });
   if (!response.ok) throw new Error(`${source.name} returned ${response.status}`);
   return normalize(source.read(await response.json()), source.scale);
 }
@@ -84,10 +94,16 @@ async function refill() {
 
 export function primeQuantumPool() {
   if (inFlight) return inFlight;
+  priming = true;
   inFlight = refill().finally(() => {
     inFlight = null;
+    priming = false;
   });
   return inFlight;
+}
+
+export function isPriming() {
+  return priming;
 }
 
 export function nextRandom() {
@@ -97,6 +113,7 @@ export function nextRandom() {
 }
 
 export function randomSourceLabel() {
+  if (priming && !pool.length) return 'contacting quantum random service';
   if (!pool.length) return 'local fallback';
   return sourceName || 'local fallback';
 }
