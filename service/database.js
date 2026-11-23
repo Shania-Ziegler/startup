@@ -84,6 +84,20 @@ function getLeaderboard() {
     .toArray();
 }
 
+let closing = false;
+async function shutdown() {
+  if (closing) return;
+  closing = true;
+  try {
+    await client.close();
+  } catch {
+  }
+  process.exit(0);
+}
+
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
+
 module.exports = {
   getUser,
   getUserByToken,
