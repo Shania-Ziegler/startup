@@ -1,0 +1,98 @@
+const { MongoClient } = require('mongodb');
+const config = require('./dbConfig.json');
+
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const client = new MongoClient(url);
+const db = client.db('sanctuary');
+
+const userCollection = db.collection('user');
+const progressCollection = db.collection('progress');
+const activityCollection = db.collection('activity');
+
+const ACTIVITY_LIMIT = 50;
+
+
+(async function testConnection() {
+  try {
+    await db.command({ ping: 1 });
+    await userCollection.createIndex({ username: 1 }, { unique: true });
+    await progressCollection.createIndex({ username: 1 }, { unique: true });
+    console.log(`Connected to database at ${config.hostname}`);
+  } catch (ex) {
+    console.log(`Unable to connect to ${config.hostname} because ${ex.message}`);
+    process.exit(1);
+  }
+})();
+
+function getUser(username) {
+  if (!username) return Promise.resolve(null);
+  return userCollection.findOne({ username });
+}
+
+function getUserByToken(token) {
+  if (!token) return Promise.resolve(null);
+  return userCollection.findOne({ token });
+}
+
+function addUser(user) {
+  return userCollection.insertOne(user);
+}
+
+function setUserToken(username, token) {
+  return userCollection.updateOne({ username }, { $set: { token } });
+}
+
+function clearUserToken(username) {
+  return userCollection.updateOne({ username }, { $unset: { token: '' } });
+}
+
+async function getProgress(username) {
+  const record = await progressCollection.findOne({ username });
+  return record ? record.progress : null;
+}
+
+// solved and discovered stored alongside the progress so the leaderboard  can be a sorted query instead of reading every doc
+function saveProgress(username, progress) {
+  const solved = Object.values(progress.levels).reduce((sum, n) => sum + n, 0);
+  return progressCollection.updateOne(
+    { username },
+    { $set: { username, progress, solved, discovered: progress.discovered.length } },
+    { upsert: true }
+  );
+}
+
+function addActivity(entry) {
+  return activityCollection.insertOne(entry);
+}
+
+function getActivity() {
+  return activityCollection
+    .find({}, { sort: { at: -1 }, limit: ACTIVITY_LIMIT, projection: { _id: 0 } })
+    .toArray();
+}
+
+function getLeaderboard() {
+  return progressCollection
+    .find(
+      {},
+      {
+        sort: { solved: -1, discovered: -1 },
+        limit: 10,
+        projection: { _id: 0, username: 1, solved: 1, discovered: 1 },
+      }
+    )
+    .toArray();
+}
+
+module.exports = {
+  getUser,
+  getUserByToken,
+  addUser,
+  setUserToken,
+  clearUserToken,
+  getProgress,
+  saveProgress,
+  addActivity,
+  getActivity,
+  getLeaderboard,
+};
