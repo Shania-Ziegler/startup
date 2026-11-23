@@ -1,5 +1,19 @@
 const { MongoClient } = require('mongodb');
-const config = require('./dbConfig.json');
+
+let config;
+try {
+  config = require('./dbConfig.json');
+} catch {
+  console.log('Missing service/dbConfig.json.  You need hostname, userName and password.');
+  process.exit(1);
+}
+
+for (const field of ['hostname', 'userName', 'password']) {
+  if (!config[field]) {
+    console.log(`service/dbConfig.json is missing "${field}".`);
+    process.exit(1);
+  }
+}
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
@@ -47,11 +61,14 @@ function clearUserToken(username) {
 }
 
 async function getProgress(username) {
-  const record = await progressCollection.findOne({ username });
+  const record = await progressCollection.findOne(
+    { username },
+    { projection: { progress: 1, _id: 0 } }
+  );
   return record ? record.progress : null;
 }
 
-// solved and discovered stored alongside the progress so the leaderboard  can be a sorted query instead of reading every doc
+
 function saveProgress(username, progress) {
   const solved = Object.values(progress.levels).reduce((sum, n) => sum + n, 0);
   return progressCollection.updateOne(
