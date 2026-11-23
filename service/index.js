@@ -192,6 +192,10 @@ apiRouter.get('/leaderboard', verifyAuth, run(async (_req, res) => {
   res.send(await DB.getLeaderboard());
 }));
 
+apiRouter.use((_req, res) => {
+  res.status(404).send({ msg: 'API endpoint not found' });
+});
+
 app.use((err, _req, res, _next) => {
   console.error(err);
   res.status(500).send({ msg: 'Internal Server Error' });
