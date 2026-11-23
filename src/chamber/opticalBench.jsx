@@ -1,6 +1,6 @@
 import React from 'react';
 import { PARTS, emptyBench, simulate } from './optics';
-import { nextRandom, primeQuantumPool, randomSourceLabel } from './quantumRandom';
+import { nextRandom, primeQuantumPool, randomSourceLabel, isPriming } from './quantumRandom';
 import { delay } from './delay';
 
 const SHOT_BATCH = 20;
@@ -129,10 +129,19 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
 
   React.useEffect(() => {
     mounted.current = true;
-    primeQuantumPool().then(() => {
+    primeQuantumPool();
+    setSource(randomSourceLabel());
+    const settle = () => {
       if (mounted.current) setSource(randomSourceLabel());
-    });
+    };
+    const poll = setInterval(() => {
+      if (!isPriming()) {
+        settle();
+        clearInterval(poll);
+      }
+    }, 250);
     return () => {
+      clearInterval(poll);
       mounted.current = false;
       runId.current += 1;
     };
@@ -247,8 +256,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
       setVerdict('Firing photons.');
       let tally = { A: 0, B: 0 };
       setCounts(tally);
-      await primeQuantumPool();
-      if (!active()) return;
+      primeQuantumPool();
       setSource(randomSourceLabel());
       for (let i = 0; i < SHOT_BATCH; i++) {
         if (!active()) return;
@@ -260,6 +268,7 @@ export function OpticalBench({ level, onSolved, onDiscover, onEdited, onBusyChan
       }
       if (!active()) return;
       setFlash(null);
+      setSource(randomSourceLabel());
       const shots = tally.A + tally.B;
       const shareA = tally.A / shots;
       if (level.check(shareA, physics, bench)) {
