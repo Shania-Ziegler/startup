@@ -1,0 +1,6 @@
+node_modules/
+dist/
+build/
+cs260.pem
+dbConfig.json
+.env
