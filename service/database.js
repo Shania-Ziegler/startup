@@ -4,7 +4,7 @@ let config;
 try {
   config = require('./dbConfig.json');
 } catch {
-  console.log('Missing service/dbConfig.json.  You need hostname, userName and password.');
+  console.log('Missing service/dbConfig.json. It needs hostname, userName and password.');
   process.exit(1);
 }
 
@@ -17,7 +17,7 @@ for (const field of ['hostname', 'userName', 'password']) {
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('sanctuary');
+const db = client.db(config.dbName || 'sanctuary');
 
 const userCollection = db.collection('user');
 const progressCollection = db.collection('progress');
@@ -25,8 +25,7 @@ const activityCollection = db.collection('activity');
 
 const ACTIVITY_LIMIT = 50;
 
-
-(async function testConnection() {
+const ready = (async function testConnection() {
   try {
     await db.command({ ping: 1 });
     await userCollection.createIndex({ username: 1 }, { unique: true });
@@ -45,7 +44,7 @@ function getUser(username) {
 
 function getUserByToken(token) {
   if (!token) return Promise.resolve(null);
-  return userCollection.findOne({ token });
+  return userCollection.findOne({ token }, { projection: { password: 0 } });
 }
 
 function addUser(user) {
@@ -67,7 +66,6 @@ async function getProgress(username) {
   );
   return record ? record.progress : null;
 }
-
 
 function saveProgress(username, progress) {
   const solved = Object.values(progress.levels).reduce((sum, n) => sum + n, 0);
@@ -116,6 +114,7 @@ process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
 module.exports = {
+  ready,
   getUser,
   getUserByToken,
   addUser,

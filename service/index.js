@@ -65,6 +65,7 @@ function counts(value) {
         Number.isSafeInteger(count) && count >= 0 && count <= 999)
   );
 }
+
 function normalizeProgress(saved) {
   const value = isRecord(saved) ? saved : {};
   return {
@@ -103,8 +104,8 @@ apiRouter.post('/auth/create', run(async (req, res) => {
     res.status(400).send({ msg: 'Apprentice name must be at least 2 characters' });
     return;
   }
-  if (typeof password !== 'string' || password.length < 4) {
-    res.status(400).send({ msg: 'Password must be at least 4 characters' });
+  if (typeof password !== 'string' || password.length < 8) {
+    res.status(400).send({ msg: 'Password must be at least 8 characters' });
     return;
   }
   if (await DB.getUser(username.trim())) {
@@ -201,11 +202,12 @@ app.use((err, _req, res, _next) => {
   res.status(500).send({ msg: 'Internal Server Error' });
 });
 
-
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-app.listen(port, () => {
-  console.log(`Quantum Sanctuary service listening on port ${port}`);
+DB.ready.then(() => {
+  app.listen(port, () => {
+    console.log(`Quantum Sanctuary service listening on port ${port}`);
+  });
 });
