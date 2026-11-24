@@ -2,7 +2,8 @@ const { MongoClient } = require('mongodb');
 
 try {
   require('dotenv').config({ quiet: true });
-} catch {
+} catch (ex) {
+  if (ex.code !== 'MODULE_NOT_FOUND') throw ex;
 }
 
 const config = {
