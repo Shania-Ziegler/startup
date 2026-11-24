@@ -7,6 +7,7 @@ const DB = require('./database');
 const app = express();
 const authCookieName = 'token';
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const MAX_DISCOVERED = 200;
 
 const cookieOptions = {
   secure: true,
@@ -79,7 +80,7 @@ function normalizeProgress(saved) {
         (Array.isArray(value.discovered) ? value.discovered : [])
           .filter((item) => typeof item === 'string' && item.length <= 64)
       ),
-    ].slice(0, 200),
+    ].slice(0, MAX_DISCOVERED),
   };
 }
 
@@ -93,7 +94,7 @@ function mergeProgress(existing, incoming) {
     const b = incoming.best[key];
     merged.best[key] = a === undefined ? b : b === undefined ? a : Math.min(a, b);
   }
-  merged.discovered = [...new Set([...existing.discovered, ...incoming.discovered])].slice(0, 200);
+  merged.discovered = [...new Set([...existing.discovered, ...incoming.discovered])].slice(0, MAX_DISCOVERED);
   return merged;
 }
 
