@@ -15,7 +15,7 @@ for (const field of ['hostname', 'userName', 'password']) {
   }
 }
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const url = `mongodb+srv://${encodeURIComponent(config.userName)}:${encodeURIComponent(config.password)}@${config.hostname}`;
 const client = new MongoClient(url);
 const db = client.db(config.dbName || 'sanctuary');
 
