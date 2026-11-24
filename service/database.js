@@ -5,38 +5,22 @@ try {
 } catch {
 }
 
-function loadConfig() {
-  const fromEnv = {
-    hostname: process.env.MONGO_HOSTNAME,
-    userName: process.env.MONGO_USERNAME,
-    password: process.env.MONGO_PASSWORD,
-    dbName: process.env.MONGO_DBNAME,
-  };
-  if (fromEnv.hostname && fromEnv.userName && fromEnv.password) {
-    console.log('Using database credentials from the environment.');
-    return fromEnv;
-  }
+const config = {
+  hostname: process.env.MONGO_HOSTNAME,
+  userName: process.env.MONGO_USERNAME,
+  password: process.env.MONGO_PASSWORD,
+  dbName: process.env.MONGO_DBNAME,
+};
 
-  try {
-    const fromFile = require('./dbConfig.json');
-    console.log('Using database credentials from dbConfig.json.');
-    return fromFile;
-  } catch {
-    return null;
-  }
-}
+const REQUIRED = {
+  hostname: 'MONGO_HOSTNAME',
+  userName: 'MONGO_USERNAME',
+  password: 'MONGO_PASSWORD',
+};
 
-const config = loadConfig();
-
-if (!config) {
-  console.log('No database credentials found. Set MONGO_HOSTNAME, MONGO_USERNAME and');
-  console.log('MONGO_PASSWORD in the environment, or provide service/dbConfig.json.');
-  process.exit(1);
-}
-
-for (const field of ['hostname', 'userName', 'password']) {
+for (const [field, variable] of Object.entries(REQUIRED)) {
   if (!config[field]) {
-    console.log(`Database configuration is missing "${field}".`);
+    console.log(`${variable} is not set. Put it in service/.env or export it.`);
     process.exit(1);
   }
 }
@@ -56,6 +40,7 @@ const ready = (async function testConnection() {
     await db.command({ ping: 1 });
     await userCollection.createIndex({ username: 1 }, { unique: true });
     await progressCollection.createIndex({ username: 1 }, { unique: true });
+    await activityCollection.createIndex({ at: -1 });
     console.log(`Connected to database at ${config.hostname}`);
   } catch (ex) {
     console.log(`Unable to connect to ${config.hostname} because ${ex.message}`);

@@ -57,11 +57,14 @@ function isRecord(value) {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
-function counts(value) {
+const CHAMBER_IDS = ['quiet', 'lantern', 'glass', 'spire', 'lattice'];
+const LEVEL_KEY = new RegExp(`^(${CHAMBER_IDS.join('|')})-\\d{1,2}$`);
+
+function counts(value, isValidKey) {
   return Object.fromEntries(
     Object.entries(isRecord(value) ? value : {})
       .filter(([key, count]) =>
-        typeof key === 'string' && key.length <= 64 &&
+        typeof key === 'string' && isValidKey(key) &&
         Number.isSafeInteger(count) && count >= 0 && count <= 999)
   );
 }
@@ -69,8 +72,8 @@ function counts(value) {
 function normalizeProgress(saved) {
   const value = isRecord(saved) ? saved : {};
   return {
-    levels: counts(value.levels),
-    best: counts(value.best),
+    levels: counts(value.levels, (key) => CHAMBER_IDS.includes(key)),
+    best: counts(value.best, (key) => LEVEL_KEY.test(key)),
     discovered: [
       ...new Set(
         (Array.isArray(value.discovered) ? value.discovered : [])

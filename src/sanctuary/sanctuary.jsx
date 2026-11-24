@@ -142,7 +142,7 @@ export function Sanctuary() {
               <button
                 type="button"
                 className="text-btn"
-                onClick={() => setProgress(resetProgress())}
+                onClick={async () => setProgress(await resetProgress())}
               >
                 Reset progress
               </button>
