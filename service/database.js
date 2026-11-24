@@ -1,16 +1,42 @@
 const { MongoClient } = require('mongodb');
 
-let config;
 try {
-  config = require('./dbConfig.json');
+  require('dotenv').config({ quiet: true });
 } catch {
-  console.log('Missing service/dbConfig.json. It needs hostname, userName and password.');
+}
+
+function loadConfig() {
+  const fromEnv = {
+    hostname: process.env.MONGO_HOSTNAME,
+    userName: process.env.MONGO_USERNAME,
+    password: process.env.MONGO_PASSWORD,
+    dbName: process.env.MONGO_DBNAME,
+  };
+  if (fromEnv.hostname && fromEnv.userName && fromEnv.password) {
+    console.log('Using database credentials from the environment.');
+    return fromEnv;
+  }
+
+  try {
+    const fromFile = require('./dbConfig.json');
+    console.log('Using database credentials from dbConfig.json.');
+    return fromFile;
+  } catch {
+    return null;
+  }
+}
+
+const config = loadConfig();
+
+if (!config) {
+  console.log('No database credentials found. Set MONGO_HOSTNAME, MONGO_USERNAME and');
+  console.log('MONGO_PASSWORD in the environment, or provide service/dbConfig.json.');
   process.exit(1);
 }
 
 for (const field of ['hostname', 'userName', 'password']) {
   if (!config[field]) {
-    console.log(`service/dbConfig.json is missing "${field}".`);
+    console.log(`Database configuration is missing "${field}".`);
     process.exit(1);
   }
 }
@@ -105,7 +131,9 @@ async function shutdown() {
   closing = true;
   try {
     await client.close();
-  } catch {
+    console.log('Database connection closed.');
+  } catch (ex) {
+    console.error('Error closing the database connection:', ex.message);
   }
   process.exit(0);
 }
