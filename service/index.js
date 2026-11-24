@@ -111,10 +111,6 @@ apiRouter.post('/auth/create', run(async (req, res) => {
     res.status(400).send({ msg: 'Password must be at least 8 characters' });
     return;
   }
-  if (await DB.getUser(username.trim())) {
-    res.status(409).send({ msg: 'That apprentice name is already taken' });
-    return;
-  }
 
   let user;
   try {

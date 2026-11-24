@@ -16,6 +16,7 @@ const REQUIRED = {
   hostname: 'MONGO_HOSTNAME',
   userName: 'MONGO_USERNAME',
   password: 'MONGO_PASSWORD',
+  dbName: 'MONGO_DBNAME',
 };
 
 for (const [field, variable] of Object.entries(REQUIRED)) {
@@ -27,7 +28,7 @@ for (const [field, variable] of Object.entries(REQUIRED)) {
 
 const url = `mongodb+srv://${encodeURIComponent(config.userName)}:${encodeURIComponent(config.password)}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db(config.dbName || 'sanctuary');
+const db = client.db(config.dbName);
 
 const userCollection = db.collection('user');
 const progressCollection = db.collection('progress');
