@@ -57,7 +57,7 @@ function isRecord(value) {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
-const CHAMBER_IDS = ['quiet', 'lantern', 'glass', 'spire', 'lattice'];
+const CHAMBER_IDS = require('./chambers.json');
 const LEVEL_KEY = new RegExp(`^(${CHAMBER_IDS.join('|')})-\\d{1,2}$`);
 
 function counts(value, isValidKey) {
