@@ -905,6 +905,42 @@ Matchers:
 It recursively checks every field of an object or array for deep value equality rather than checking if they are the exact same instance in memory..
 Coverage: Use jest.config.json to ensure a high percentage (e.g., 80%) of your code is actually exercised by tests.
 TDD: Write your tests before your code to define the expected behavior and ensure future changes don't break existing features.
+
+## Websocket
+
+Websocket was made in 2011 to overcome HTTP limitations of the client-server model. In standard HTTP, the server cannot talk to the client unless the client asks first.
+Before WebSocket, developers used workarounds to simulate real-time updates:
+
+Polling: The client frequently pings the server to ask, "Is there new data?"
+Long Polling: Keeping a connection open for a long time waiting for a server event.
+
+These methods were inefficient and resource-heavy.
+So WebSocket solves this by being fully duplexed, this means that once the connection is "upgraded" from HTTP, both parties can send data at any time.
+
+Websocket connections are only between two parties still however.
+
+Sticky Sessions: Load balancers must ensure a client stays connected to the same server.
+Synchronization: If User A is on Server 1 and User B is on Server 2, the servers need a back-end mechanism (like Redis) to pass messages between them.
+To keep these connections from "rotting" or wasting memory on dead links, developers use heartbeats (ping/pong) to terminate inactive sockets.
+
+WebSocket connections can be dropped by firewalls, proxies, or load balancers if they are idle for too long. To prevent this, implement a "heartbeat" (ping/pong) mechanism to ensure the connection remains active.
+
+When a connection closes Websocket API provides a numeric code and a reason such as:
+1000: Normal Closure.
+1001: Going Away (e.g., server shutdown or browser tab closed).
+1006: Abnormal Closure (connection lost without a close frame).
+There's 15 codes in total in use 1004 is currently a placeholder it's not in use.
+
+Always use wss:// (WebSocket Secure) in production. It uses TLS/SSL to encrypt the data stream. This protects data, Man-In-The-Middle attacks and ensures that transparent proxy servers do not interfere with or block the WebSocket traffic.
+
+HTTP is a client-server architecture in which the client always initiates a request, and then the server responds, whereas WebSocket has a peer-to-peer architecture connection, which allows any party to send data at any time.
+WebSockets are stateful. The server must keep track of every active connection in memory. This differs from RESTful APIs, which are stateless.  HTTP is also stateless.
+HTTP has a Request-Response communication; it's a one-way, at-a-time flow, whereas WebSockets allow asynchronous two-way communication. 
+WebSockets starts as a standard HTTP request. To establish a connection, the client sends an "Upgrade" header to the server. If the server supports the protocol, it responds with an HTTP 101 status code (Switching Protocols). Once  successful, the TCP connection remains open, and both parties can send data at any time.
+
+
+
+
 ## Technology Stack 
 
 The collection of technologies that you use to create or deliver your web application is called a technology stack.
